@@ -1,12 +1,12 @@
 <Activity mc:Ignorable="sap sap2010" x:Class="PullVoluntaryPetitionData" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Drawing;assembly=System.Drawing" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
-    <x:Property Name="out_DataRowToAddArr" Type="OutArgument(s:String[])" />
     <x:Property Name="in_VoluntaryPetitionFirstPagePDFFilePath" Type="InArgument(x:String)" />
+    <x:Property Name="out_DebtorZIPCode" Type="OutArgument(x:String)" />
   </x:Members>
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1390,3290</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1360.66666666667,5259.33333333333</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>PullVoluntaryPetitionData_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="30">
@@ -66,227 +66,143 @@
       <AssemblyReference>UiPath.OCR.Contracts</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="PullVoluntaryPetitionData" sap:VirtualizedContainerService.HintSize="868.666666666667,3225.33333333333" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="PullVoluntaryPetitionData" sap:VirtualizedContainerService.HintSize="744.666666666667,2188" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
-      <Variable x:TypeArguments="ui:UiElement" Name="FoundDataPoint" />
-      <Variable x:TypeArguments="s:String[]" Name="DataPointToPullArr" />
-      <Variable x:TypeArguments="x:Int32" Name="DataPointToPullIndex" />
-      <Variable x:TypeArguments="x:String" Name="DataPointText" />
+      <Variable x:TypeArguments="ui:UiElement" Name="FoundDebtorZIPCode" />
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:StartProcess WorkingDirectory="{x:Null}" Arguments="[in_VoluntaryPetitionFirstPagePDFFilePath]" DisplayName="Start Process - Open First Page of Voluntary Petition PDF in Adobe Acrobat Reader" FileName="C:\Program Files (x86)\Adobe\Acrobat Reader DC\Reader\acrord32.exe" sap:VirtualizedContainerService.HintSize="826.666666666667,86.6666666666667" sap2010:WorkflowViewState.IdRef="StartProcess_1" />
-    <Assign sap:VirtualizedContainerService.HintSize="826.666666666667,62" sap2010:WorkflowViewState.IdRef="Assign_1">
-      <Assign.To>
-        <OutArgument x:TypeArguments="s:String[]">[DataPointToPullArr]</OutArgument>
-      </Assign.To>
-      <Assign.Value>
-        <InArgument x:TypeArguments="s:String[]">[{"Name of Debtor", "Name of Joint Debtor", "Street Address of Debtor", "Street Address of Joint Debtor"}]</InArgument>
-      </Assign.Value>
-    </Assign>
-    <Assign sap:VirtualizedContainerService.HintSize="826.666666666667,62" sap2010:WorkflowViewState.IdRef="Assign_2">
-      <Assign.To>
-        <OutArgument x:TypeArguments="x:Int32">[DataPointToPullIndex]</OutArgument>
-      </Assign.To>
-      <Assign.Value>
-        <InArgument x:TypeArguments="x:Int32">0</InArgument>
-      </Assign.Value>
-    </Assign>
-    <Assign sap:VirtualizedContainerService.HintSize="826.666666666667,62" sap2010:WorkflowViewState.IdRef="Assign_3">
-      <Assign.To>
-        <OutArgument x:TypeArguments="s:String[]">[out_DataRowToAddArr]</OutArgument>
-      </Assign.To>
-      <Assign.Value>
-        <InArgument x:TypeArguments="s:String[]">[new String(3){}]</InArgument>
-      </Assign.Value>
-    </Assign>
-    <ui:WindowScope ApplicationWindow="{x:Null}" SearchScope="{x:Null}" TimeoutMS="{x:Null}" Window="{x:Null}" DisplayName="Attach Window - Adobe Acrobat Reader" sap:VirtualizedContainerService.HintSize="826.666666666667,2700.66666666667" sap2010:WorkflowViewState.IdRef="WindowScope_1" Selector="&lt;wnd app='acrord32.exe' cls='AcrobatSDIWindow' title='*' /&gt;">
+    <ui:StartProcess WorkingDirectory="{x:Null}" Arguments="[in_VoluntaryPetitionFirstPagePDFFilePath]" DisplayName="Start Process - Open First Page of Voluntary Petition PDF in Adobe Acrobat Reader" FileName="C:\Program Files (x86)\Adobe\Acrobat Reader DC\Reader\acrord32.exe" sap:VirtualizedContainerService.HintSize="702.666666666667,86.6666666666667" sap2010:WorkflowViewState.IdRef="StartProcess_1" />
+    <ui:WindowScope ApplicationWindow="{x:Null}" SearchScope="{x:Null}" TimeoutMS="{x:Null}" Window="{x:Null}" DisplayName="Attach Window - Adobe Acrobat Reader" sap:VirtualizedContainerService.HintSize="702.666666666667,1969.33333333333" sap2010:WorkflowViewState.IdRef="WindowScope_1" Selector="&lt;wnd app='acrord32.exe' cls='AcrobatSDIWindow' title='*' /&gt;">
       <ui:WindowScope.Body>
         <ActivityAction x:TypeArguments="x:Object">
           <ActivityAction.Argument>
             <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
           </ActivityAction.Argument>
-          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="792.666666666667,2592.66666666667" sap2010:WorkflowViewState.IdRef="Sequence_9">
+          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="668.666666666667,1861.33333333333" sap2010:WorkflowViewState.IdRef="Sequence_9">
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
-            <ui:InterruptibleDoWhile DisplayName="Do While" sap:VirtualizedContainerService.HintSize="750.666666666667,2392.66666666667" sap2010:WorkflowViewState.IdRef="InterruptibleDoWhile_2">
-              <ui:InterruptibleDoWhile.Body>
-                <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="714,2223.33333333333" sap2010:WorkflowViewState.IdRef="Sequence_21">
+            <Sequence DisplayName="Sequence - Pinpoint Debtor ZIP Code on First Page of Voluntary Petition PDF" sap:VirtualizedContainerService.HintSize="626.666666666667,1084" sap2010:WorkflowViewState.IdRef="Sequence_38">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="584.666666666667,400.666666666667" sap2010:WorkflowViewState.IdRef="TryCatch_8">
+                <TryCatch.Try>
+                  <ui:FindOCRText DisplayName="Find OCR Text Position - Debtor ZIP Code" Element="[FoundDebtorZIPCode]" sap:VirtualizedContainerService.HintSize="334,162.666666666667" sap2010:WorkflowViewState.IdRef="FindOCRText_8" Occurrence="1" Text=", CA ">
+                    <ui:FindOCRText.OCREngine>
+                      <ActivityFunc x:TypeArguments="sd:Image, scg:IEnumerable(scg:KeyValuePair(sd:Rectangle, x:String))">
+                        <ActivityFunc.Argument>
+                          <DelegateInArgument x:TypeArguments="sd:Image" Name="Image" />
+                        </ActivityFunc.Argument>
+                        <ui:GoogleOCR AllowedCharacters="{x:Null}" DeniedCharacters="{x:Null}" FilterRegion="{x:Null}" Invert="{x:Null}" Language="{x:Null}" Output="{x:Null}" Profile="{x:Null}" Scale="{x:Null}" Text="{x:Null}" ComputeSkewAngle="False" DisplayName="Tesseract OCR" ExtractWords="True" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="GoogleOCR_20" Image="[Image]" />
+                      </ActivityFunc>
+                    </ui:FindOCRText.OCREngine>
+                    <ui:FindOCRText.Target>
+                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="ce052c89-8868-488b-b1fc-a91f258f9f7a" Selector="&lt;wnd app='acrord32.exe' cls='AcrobatSDIWindow' title='*' /&gt;" TimeoutMS="10000" WaitForReady="COMPLETE" />
+                    </ui:FindOCRText.Target>
+                  </ui:FindOCRText>
+                </TryCatch.Try>
+                <TryCatch.Catches>
+                  <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="404.666666666667,22" sap2010:WorkflowViewState.IdRef="Catch`1_8">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                        <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <ActivityAction x:TypeArguments="s:Exception">
+                      <ActivityAction.Argument>
+                        <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
+                      </ActivityAction.Argument>
+                      <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,94.6666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_8" Level="Error" Message="[&quot;Error extracting CA ZIP code from PDF of first page of voluntary petition: &quot; + exception.Message]" />
+                    </ActivityAction>
+                  </Catch>
+                </TryCatch.Catches>
+              </TryCatch>
+              <If Condition="[FoundDebtorZIPCode Is Nothing]" sap:VirtualizedContainerService.HintSize="584.666666666667,551.333333333333" sap2010:WorkflowViewState.IdRef="If_10">
+                <If.Then>
+                  <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="438.666666666667,400.666666666667" sap2010:WorkflowViewState.IdRef="TryCatch_9">
+                    <TryCatch.Try>
+                      <ui:FindOCRText DisplayName="Find OCR Text Position - Debtor ZIP Code" Element="[FoundDebtorZIPCode]" sap:VirtualizedContainerService.HintSize="334,162.666666666667" sap2010:WorkflowViewState.IdRef="FindOCRText_9" Occurrence="1" Text=", Ca ">
+                        <ui:FindOCRText.OCREngine>
+                          <ActivityFunc x:TypeArguments="sd:Image, scg:IEnumerable(scg:KeyValuePair(sd:Rectangle, x:String))">
+                            <ActivityFunc.Argument>
+                              <DelegateInArgument x:TypeArguments="sd:Image" Name="Image" />
+                            </ActivityFunc.Argument>
+                            <ui:GoogleOCR AllowedCharacters="{x:Null}" DeniedCharacters="{x:Null}" FilterRegion="{x:Null}" Invert="{x:Null}" Language="{x:Null}" Output="{x:Null}" Profile="{x:Null}" Scale="{x:Null}" Text="{x:Null}" ComputeSkewAngle="False" DisplayName="Tesseract OCR" ExtractWords="True" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="GoogleOCR_21" Image="[Image]" />
+                          </ActivityFunc>
+                        </ui:FindOCRText.OCREngine>
+                        <ui:FindOCRText.Target>
+                          <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="ce052c89-8868-488b-b1fc-a91f258f9f7a" Selector="&lt;wnd app='acrord32.exe' cls='AcrobatSDIWindow' title='*' /&gt;" TimeoutMS="10000" WaitForReady="COMPLETE" />
+                        </ui:FindOCRText.Target>
+                      </ui:FindOCRText>
+                    </TryCatch.Try>
+                    <TryCatch.Catches>
+                      <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="404.666666666667,22" sap2010:WorkflowViewState.IdRef="Catch`1_9">
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                        <ActivityAction x:TypeArguments="s:Exception">
+                          <ActivityAction.Argument>
+                            <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
+                          </ActivityAction.Argument>
+                          <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,94.6666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_9" Level="Error" Message="[&quot;Error extracting Ca ZIP code from PDF of first page of voluntary petition: &quot; + exception.Message]" />
+                        </ActivityAction>
+                      </Catch>
+                    </TryCatch.Catches>
+                  </TryCatch>
+                </If.Then>
+              </If>
+            </Sequence>
+            <If Condition="[FoundDebtorZIPCode Is Nothing]" sap:VirtualizedContainerService.HintSize="626.666666666667,537.333333333333" sap2010:WorkflowViewState.IdRef="If_12">
+              <If.Else>
+                <Sequence DisplayName="Sequence - Extract Debtor ZIP Code OCR Text" sap:VirtualizedContainerService.HintSize="376,386.666666666667" sap2010:WorkflowViewState.IdRef="Sequence_42">
                   <sap:WorkflowViewStateService.ViewState>
                     <scg:Dictionary x:TypeArguments="x:String, x:Object">
                       <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                     </scg:Dictionary>
                   </sap:WorkflowViewStateService.ViewState>
-                  <Sequence DisplayName="Sequence - Pinpoint Debtor/Joint Debtor Data Point on First Page of Voluntary Petition PDF" sap:VirtualizedContainerService.HintSize="672,957.333333333333" sap2010:WorkflowViewState.IdRef="Sequence_18">
-                    <sap:WorkflowViewStateService.ViewState>
-                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                      </scg:Dictionary>
-                    </sap:WorkflowViewStateService.ViewState>
-                    <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="580,337.333333333333" sap2010:WorkflowViewState.IdRef="TryCatch_4">
-                      <TryCatch.Try>
-                        <ui:FindOCRText DisplayName="Find OCR Text Position - Debtor/Joint Debtor Data Point" Element="[FoundDataPoint]" sap:VirtualizedContainerService.HintSize="334,162.666666666667" sap2010:WorkflowViewState.IdRef="FindOCRText_4" Occurrence="1" Text="[DataPointToPullArr(DataPointToPullIndex)]">
-                          <ui:FindOCRText.OCREngine>
-                            <ActivityFunc x:TypeArguments="sd:Image, scg:IEnumerable(scg:KeyValuePair(sd:Rectangle, x:String))">
-                              <ActivityFunc.Argument>
-                                <DelegateInArgument x:TypeArguments="sd:Image" Name="Image" />
-                              </ActivityFunc.Argument>
-                              <ui:GoogleOCR AllowedCharacters="{x:Null}" DeniedCharacters="{x:Null}" FilterRegion="{x:Null}" Invert="{x:Null}" Language="{x:Null}" Output="{x:Null}" Profile="{x:Null}" Scale="{x:Null}" Text="{x:Null}" ComputeSkewAngle="False" DisplayName="Tesseract OCR" ExtractWords="True" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="GoogleOCR_8" Image="[Image]" />
-                            </ActivityFunc>
-                          </ui:FindOCRText.OCREngine>
-                          <ui:FindOCRText.Target>
-                            <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Selector="{x:Null}" Id="ce052c89-8868-488b-b1fc-a91f258f9f7a" TimeoutMS="10000" WaitForReady="COMPLETE" />
-                          </ui:FindOCRText.Target>
-                        </ui:FindOCRText>
-                      </TryCatch.Try>
-                      <TryCatch.Catches>
-                        <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="400,165.333333333333" sap2010:WorkflowViewState.IdRef="Catch`1_4">
-                          <sap:WorkflowViewStateService.ViewState>
-                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                              <x:Boolean x:Key="IsPinned">False</x:Boolean>
-                            </scg:Dictionary>
-                          </sap:WorkflowViewStateService.ViewState>
-                          <ActivityAction x:TypeArguments="s:Exception">
-                            <ActivityAction.Argument>
-                              <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
-                            </ActivityAction.Argument>
-                            <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,94.6666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_4" Level="Error" Message="[String.Format(&quot;Error extracting {0} from PDF of first page of voluntary petition: {1}&quot;, DataPointToPullArr(DataPointToPullIndex), exception.Message)]" />
-                          </ActivityAction>
-                        </Catch>
-                      </TryCatch.Catches>
-                    </TryCatch>
-                    <If Condition="[FoundDataPoint Is Nothing]" sap:VirtualizedContainerService.HintSize="580,488" sap2010:WorkflowViewState.IdRef="If_4">
-                      <If.Then>
-                        <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="434,337.333333333333" sap2010:WorkflowViewState.IdRef="TryCatch_7">
-                          <TryCatch.Try>
-                            <ui:FindOCRText DisplayName="Find OCR Text Position - Uppercase Debtor/Joint Debtor Data Point" Element="[FoundDataPoint]" sap:VirtualizedContainerService.HintSize="334,162.666666666667" sap2010:WorkflowViewState.IdRef="FindOCRText_7" Occurrence="1" Text="[DataPointToPullArr(DataPointToPullIndex).ToUpper]">
-                              <ui:FindOCRText.OCREngine>
-                                <ActivityFunc x:TypeArguments="sd:Image, scg:IEnumerable(scg:KeyValuePair(sd:Rectangle, x:String))">
-                                  <ActivityFunc.Argument>
-                                    <DelegateInArgument x:TypeArguments="sd:Image" Name="Image" />
-                                  </ActivityFunc.Argument>
-                                  <ui:GoogleOCR AllowedCharacters="{x:Null}" DeniedCharacters="{x:Null}" FilterRegion="{x:Null}" Invert="{x:Null}" Language="{x:Null}" Output="{x:Null}" Profile="{x:Null}" Scale="{x:Null}" Text="{x:Null}" ComputeSkewAngle="False" DisplayName="Tesseract OCR" ExtractWords="True" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="GoogleOCR_11" Image="[Image]" />
-                                </ActivityFunc>
-                              </ui:FindOCRText.OCREngine>
-                              <ui:FindOCRText.Target>
-                                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Selector="{x:Null}" Id="ce052c89-8868-488b-b1fc-a91f258f9f7a" TimeoutMS="10000" WaitForReady="COMPLETE" />
-                              </ui:FindOCRText.Target>
-                            </ui:FindOCRText>
-                          </TryCatch.Try>
-                          <TryCatch.Catches>
-                            <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="400,165.333333333333" sap2010:WorkflowViewState.IdRef="Catch`1_7">
-                              <sap:WorkflowViewStateService.ViewState>
-                                <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
-                                </scg:Dictionary>
-                              </sap:WorkflowViewStateService.ViewState>
-                              <ActivityAction x:TypeArguments="s:Exception">
-                                <ActivityAction.Argument>
-                                  <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
-                                </ActivityAction.Argument>
-                                <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,94.6666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_7" Level="Error" Message="[String.Format(&quot;Error extracting {0} from PDF of first page of voluntary petition: {1}&quot;, DataPointToPullArr(DataPointToPullIndex).ToUpper, exception.Message)]" />
-                              </ActivityAction>
-                            </Catch>
-                          </TryCatch.Catches>
-                        </TryCatch>
-                      </If.Then>
-                    </If>
-                  </Sequence>
-                  <If Condition="[FoundDataPoint Is Nothing]" sap:VirtualizedContainerService.HintSize="672,828" sap2010:WorkflowViewState.IdRef="If_5">
-                    <If.Else>
-                      <Sequence DisplayName="Sequence - Extract Debtor/Joint Debtor Data Point OCR Text" sap:VirtualizedContainerService.HintSize="526,677.333333333333" sap2010:WorkflowViewState.IdRef="Sequence_22">
-                        <sap:WorkflowViewStateService.ViewState>
-                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                          </scg:Dictionary>
-                        </sap:WorkflowViewStateService.ViewState>
-                        <If Condition="[DataPointToPullArr(DataPointToPullIndex).ToUpper.Contains(&quot;NAME&quot;)]" sap:VirtualizedContainerService.HintSize="484,210.666666666667" sap2010:WorkflowViewState.IdRef="If_7">
-                          <If.Then>
-                            <ui:SetClippingRegion Region="{x:Null}" Direction="TRANSLATE" DisplayName="Set Clipping Region  - Pull Name of Debtor/Joint Debtor (Short Clipping Region)" Element="[FoundDataPoint]" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="SetClippingRegion_8">
-                              <ui:SetClippingRegion.Size>
-                                <ui:Region Rectangle="0, -20, 300, 70" />
-                              </ui:SetClippingRegion.Size>
-                            </ui:SetClippingRegion>
-                          </If.Then>
-                          <If.Else>
-                            <ui:SetClippingRegion Region="{x:Null}" Direction="TRANSLATE" DisplayName="Set Clipping Region  - Pull Street Address of Debtor/Joint Debtor (Tall Clipping Region)" Element="[FoundDataPoint]" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="SetClippingRegion_7">
-                              <ui:SetClippingRegion.Size>
-                                <ui:Region Rectangle="0, -20, 300, 120" />
-                              </ui:SetClippingRegion.Size>
-                            </ui:SetClippingRegion>
-                          </If.Else>
-                        </If>
-                        <ui:GetOCRText WordsInfo="{x:Null}" DisplayName="Get OCR Text - Debtor/Joint Debtor Data Point" sap:VirtualizedContainerService.HintSize="484,130" sap2010:WorkflowViewState.IdRef="GetOCRText_6">
-                          <ui:GetOCRText.OCREngine>
-                            <ActivityFunc x:TypeArguments="sd:Image, scg:IEnumerable(scg:KeyValuePair(sd:Rectangle, x:String))">
-                              <ActivityFunc.Argument>
-                                <DelegateInArgument x:TypeArguments="sd:Image" Name="Image" />
-                              </ActivityFunc.Argument>
-                              <ui:GoogleOCR AllowedCharacters="{x:Null}" DeniedCharacters="{x:Null}" FilterRegion="{x:Null}" Invert="{x:Null}" Language="{x:Null}" Output="{x:Null}" Profile="{x:Null}" Scale="{x:Null}" Text="{x:Null}" ComputeSkewAngle="False" DisplayName="Tesseract OCR" ExtractWords="False" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="GoogleOCR_12" Image="[Image]" />
-                            </ActivityFunc>
-                          </ui:GetOCRText.OCREngine>
-                          <ui:GetOCRText.Target>
-                            <ui:Target ClippingRegion="{x:Null}" Selector="{x:Null}" Element="[FoundDataPoint]" Id="14774161-f5c3-4aad-9250-5e6f169bff77" TimeoutMS="10000">
-                              <ui:Target.WaitForReady>
-                                <InArgument x:TypeArguments="ui:WaitForReady" />
-                              </ui:Target.WaitForReady>
-                            </ui:Target>
-                          </ui:GetOCRText.Target>
-                          <ui:GetOCRText.Text>
-                            <OutArgument x:TypeArguments="x:String">[DataPointText]</OutArgument>
-                          </ui:GetOCRText.Text>
-                        </ui:GetOCRText>
-                        <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="484,62.6666666666667" sap2010:WorkflowViewState.IdRef="WriteLine_3" Text="[String.Format(&quot;{0}: {1}&quot;, DataPointToPullArr(DataPointToPullIndex), DataPointText)]" />
-                        <Assign sap:VirtualizedContainerService.HintSize="484,62" sap2010:WorkflowViewState.IdRef="Assign_6">
-                          <Assign.To>
-                            <OutArgument x:TypeArguments="x:String">[out_DataRowToAddArr(DataPointToPullIndex)]</OutArgument>
-                          </Assign.To>
-                          <Assign.Value>
-                            <InArgument x:TypeArguments="x:String">[DataPointText]</InArgument>
-                          </Assign.Value>
-                        </Assign>
-                      </Sequence>
-                    </If.Else>
-                  </If>
-                  <Assign sap:VirtualizedContainerService.HintSize="672,62" sap2010:WorkflowViewState.IdRef="Assign_5">
-                    <Assign.To>
-                      <OutArgument x:TypeArguments="x:Int32">[DataPointToPullIndex]</OutArgument>
-                    </Assign.To>
-                    <Assign.Value>
-                      <InArgument x:TypeArguments="x:Int32">[DataPointToPullIndex + 1]</InArgument>
-                    </Assign.Value>
-                  </Assign>
-                  <Assign sap:VirtualizedContainerService.HintSize="672,62" sap2010:WorkflowViewState.IdRef="Assign_4">
-                    <Assign.To>
-                      <OutArgument x:TypeArguments="ui:UiElement">[FoundDataPoint]</OutArgument>
-                    </Assign.To>
-                    <Assign.Value>
-                      <InArgument x:TypeArguments="ui:UiElement">[Nothing]</InArgument>
-                    </Assign.Value>
-                  </Assign>
-                  <Assign sap:VirtualizedContainerService.HintSize="672,62" sap2010:WorkflowViewState.IdRef="Assign_7">
-                    <Assign.To>
-                      <OutArgument x:TypeArguments="x:String">[DataPointText]</OutArgument>
-                    </Assign.To>
-                    <Assign.Value>
-                      <InArgument x:TypeArguments="x:String">[Nothing]</InArgument>
-                    </Assign.Value>
-                  </Assign>
+                  <ui:SetClippingRegion Region="{x:Null}" Direction="RIGHT" DisplayName="Set Clipping Region" Element="[FoundDebtorZIPCode]" sap:VirtualizedContainerService.HintSize="334,22" sap2010:WorkflowViewState.IdRef="SetClippingRegion_15">
+                    <ui:SetClippingRegion.Size>
+                      <ui:Region Rectangle="0, 0, 200, 0" />
+                    </ui:SetClippingRegion.Size>
+                  </ui:SetClippingRegion>
+                  <ui:GetOCRText WordsInfo="{x:Null}" DisplayName="Get OCR Text - Debtor ZIP Code" sap:VirtualizedContainerService.HintSize="334,130" sap2010:WorkflowViewState.IdRef="GetOCRText_14">
+                    <ui:GetOCRText.OCREngine>
+                      <ActivityFunc x:TypeArguments="sd:Image, scg:IEnumerable(scg:KeyValuePair(sd:Rectangle, x:String))">
+                        <ActivityFunc.Argument>
+                          <DelegateInArgument x:TypeArguments="sd:Image" Name="Image" />
+                        </ActivityFunc.Argument>
+                        <ui:GoogleOCR AllowedCharacters="{x:Null}" DeniedCharacters="{x:Null}" FilterRegion="{x:Null}" Invert="{x:Null}" Language="{x:Null}" Output="{x:Null}" Profile="{x:Null}" Scale="{x:Null}" Text="{x:Null}" ComputeSkewAngle="False" DisplayName="Tesseract OCR" ExtractWords="False" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="GoogleOCR_22" Image="[Image]" />
+                      </ActivityFunc>
+                    </ui:GetOCRText.OCREngine>
+                    <ui:GetOCRText.Target>
+                      <ui:Target ClippingRegion="{x:Null}" Selector="{x:Null}" Element="[FoundDebtorZIPCode]" Id="14774161-f5c3-4aad-9250-5e6f169bff77" TimeoutMS="10000">
+                        <ui:Target.WaitForReady>
+                          <InArgument x:TypeArguments="ui:WaitForReady" />
+                        </ui:Target.WaitForReady>
+                      </ui:Target>
+                    </ui:GetOCRText.Target>
+                    <ui:GetOCRText.Text>
+                      <OutArgument x:TypeArguments="x:String">[out_DebtorZIPCode]</OutArgument>
+                    </ui:GetOCRText.Text>
+                  </ui:GetOCRText>
+                  <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="334,62.6666666666667" sap2010:WorkflowViewState.IdRef="WriteLine_4" Text="[&quot;Debtor ZIP Code: &quot; + out_DebtorZIPCode]" />
                 </Sequence>
-              </ui:InterruptibleDoWhile.Body>
-              <ui:InterruptibleDoWhile.Condition>
-                <mva:VisualBasicValue x:TypeArguments="x:Boolean" ExpressionText="DataPointToPullIndex &lt; 4" sap2010:WorkflowViewState.IdRef="VisualBasicValue`1_1" />
-              </ui:InterruptibleDoWhile.Condition>
-            </ui:InterruptibleDoWhile>
-            <ui:CloseApplication DisplayName="Close Application" sap:VirtualizedContainerService.HintSize="750.666666666667,68" sap2010:WorkflowViewState.IdRef="CloseApplication_1">
+              </If.Else>
+            </If>
+            <ui:CloseApplication DisplayName="Close Application" sap:VirtualizedContainerService.HintSize="626.666666666667,68" sap2010:WorkflowViewState.IdRef="CloseApplication_1">
               <ui:CloseApplication.Target>
                 <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Selector="{x:Null}" Id="2ae7295c-059b-4005-a9de-79dc49a75313">
                   <ui:Target.TimeoutMS>
