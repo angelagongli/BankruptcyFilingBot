@@ -2,15 +2,15 @@
   <x:Members>
     <x:Property sap2010:Annotation.AnnotationText="Transaction item to be processed." Name="in_TransactionItem" Type="InArgument(sd:DataRow)" />
     <x:Property sap2010:Annotation.AnnotationText="Dictionary structure to store configuration data of the process (settings, constants and assets)." Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
-    <x:Property Name="io_VoluntaryPetitionDataDT" Type="InOutArgument(sd:DataTable)" />
+    <x:Property Name="io_BankruptcyFilingDataDT" Type="InOutArgument(sd:DataTable)" />
   </x:Members>
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1360.66666666667,827.333333333333</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1323.33333333333,827.333333333333</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>ProcessTransaction_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
-    <scg:List x:TypeArguments="x:String" Capacity="44">
+    <scg:List x:TypeArguments="x:String" Capacity="24">
       <x:String>System.Activities</x:String>
       <x:String>System.Activities.Statements</x:String>
       <x:String>System.Activities.Expressions</x:String>
@@ -68,8 +68,10 @@
       <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="Invoke major steps of the business process, which are usually implemented by multiple subworkflows.&#xA;&#xA;If a BusinessRuleException is thrown, the transaction is skipped. &#xA;If another kind of exception occurs, the current transaction can be retried. " DisplayName="Process" sap:VirtualizedContainerService.HintSize="383.333333333333,380" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence sap2010:Annotation.AnnotationText="Invoke major steps of the business process, which are usually implemented by multiple subworkflows.&#xA;&#xA;If a BusinessRuleException is thrown, the transaction is skipped. &#xA;If another kind of exception occurs, the current transaction can be retried. " DisplayName="Process" sap:VirtualizedContainerService.HintSize="410.666666666667,688" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
+      <Variable x:TypeArguments="x:String" Name="DebtorZIPCode" />
+      <Variable x:TypeArguments="x:String" Name="DebtorSpouseTotalCombinedMonthlyIncome" />
       <Variable x:TypeArguments="s:String[]" Name="DataRowToAddArr" />
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
@@ -78,16 +80,36 @@
         <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke PullVoluntaryPetitionData workflow" sap:VirtualizedContainerService.HintSize="341.333333333333,114" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="Components\PullVoluntaryPetitionData.xaml">
+    <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke PullVoluntaryPetitionData workflow" sap:VirtualizedContainerService.HintSize="368.666666666667,114" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="Components\PullVoluntaryPetitionData.xaml">
       <ui:InvokeWorkflowFile.Arguments>
-        <OutArgument x:TypeArguments="s:String[]" x:Key="out_DataRowToAddArr">
-          <mva:VisualBasicReference x:TypeArguments="s:String[]" ExpressionText="DataRowToAddArr" />
-        </OutArgument>
         <InArgument x:TypeArguments="x:String" x:Key="in_VoluntaryPetitionFirstPagePDFFilePath">
           <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_TransactionItem(&quot;Voluntary Petition First Page PDF File Path&quot;).ToString" />
         </InArgument>
+        <OutArgument x:TypeArguments="x:String" x:Key="out_DebtorZIPCode">
+          <mva:VisualBasicReference x:TypeArguments="x:String" ExpressionText="DebtorZIPCode" />
+        </OutArgument>
       </ui:InvokeWorkflowFile.Arguments>
     </ui:InvokeWorkflowFile>
-    <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{in_TransactionItem(&quot;Debtor Name&quot;).ToString, DataRowToAddArr(1), DataRowToAddArr(2), DataRowToAddArr(3), in_TransactionItem(&quot;Petition Number&quot;).ToString, in_TransactionItem(&quot;Voluntary Petition First Page PDF File Path&quot;).ToString}]" DataTable="[io_VoluntaryPetitionDataDT]" DisplayName="Add Data Row - VoluntaryPetitionDataDT" sap:VirtualizedContainerService.HintSize="341.333333333333,22" sap2010:WorkflowViewState.IdRef="AddDataRow_1" />
+    <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke PullScheduleIData workflow" sap:VirtualizedContainerService.HintSize="368.666666666667,114" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" UnSafe="False" WorkflowFileName="Components\PullScheduleIData.xaml">
+      <ui:InvokeWorkflowFile.Arguments>
+        <InArgument x:TypeArguments="x:String" x:Key="in_ScheduleIFirstPagePDFFilePath">
+          <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_TransactionItem(&quot;Schedule I First Page PDF File Path&quot;).ToString" />
+        </InArgument>
+        <OutArgument x:TypeArguments="x:String" x:Key="out_DebtorSpouseTotalCombinedMonthlyIncome">
+          <mva:VisualBasicReference x:TypeArguments="x:String" ExpressionText="DebtorSpouseTotalCombinedMonthlyIncome" />
+        </OutArgument>
+      </ui:InvokeWorkflowFile.Arguments>
+    </ui:InvokeWorkflowFile>
+    <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke PullSummaryOfSchedulesData workflow" sap:VirtualizedContainerService.HintSize="368.666666666667,114" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_3" UnSafe="False" WorkflowFileName="Components\PullSummaryOfSchedulesData.xaml">
+      <ui:InvokeWorkflowFile.Arguments>
+        <InArgument x:TypeArguments="x:String" x:Key="in_SummaryOfSchedulesFirstPagePDFFilePath">
+          <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_TransactionItem(&quot;Summary of Schedules First Page PDF File Path&quot;).ToString" />
+        </InArgument>
+        <OutArgument x:TypeArguments="s:String[]" x:Key="out_DataRowToAddArr">
+          <mva:VisualBasicReference x:TypeArguments="s:String[]" ExpressionText="DataRowToAddArr" />
+        </OutArgument>
+      </ui:InvokeWorkflowFile.Arguments>
+    </ui:InvokeWorkflowFile>
+    <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{in_TransactionItem(&quot;Debtor Name&quot;).ToString, DebtorZIPCode, DebtorSpouseTotalCombinedMonthlyIncome, DataRowToAddArr(0), DataRowToAddArr(1), in_TransactionItem(&quot;Petition Number&quot;).ToString}]" DataTable="[io_BankruptcyFilingDataDT]" DisplayName="Add Data Row - BankruptcyFilingDataDT" sap:VirtualizedContainerService.HintSize="368.666666666667,22" sap2010:WorkflowViewState.IdRef="AddDataRow_1" />
   </Sequence>
 </Activity>
