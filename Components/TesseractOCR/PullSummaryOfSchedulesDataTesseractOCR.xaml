@@ -6,7 +6,7 @@
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1323.33333333333,5099.33333333333</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1234,3385.33333333333</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>PullSummaryOfSchedulesData_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="30">
@@ -64,7 +64,7 @@
       <AssemblyReference>UiPath.OCR.Contracts</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="PullSummaryOfSchedulesData" sap:VirtualizedContainerService.HintSize="902,5034.66666666667" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="PullSummaryOfSchedulesData" sap:VirtualizedContainerService.HintSize="823.333333333333,3320.66666666667" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="s:String[]" Name="DataPointToPullArr" />
       <Variable x:TypeArguments="x:Int32" Name="DataPointToPullIndex" />
@@ -76,8 +76,8 @@
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:StartProcess WorkingDirectory="{x:Null}" Arguments="[in_SummaryOfSchedulesFirstPagePDFFilePath]" DisplayName="Start Process - Open First Page of Summary Of Schedules PDF in Adobe Acrobat Reader" FileName="C:\Program Files (x86)\Adobe\Acrobat Reader DC\Reader\acrord32.exe" sap:VirtualizedContainerService.HintSize="860,86.6666666666667" sap2010:WorkflowViewState.IdRef="StartProcess_1" />
-    <Assign sap:VirtualizedContainerService.HintSize="860,62" sap2010:WorkflowViewState.IdRef="Assign_2">
+    <ui:StartProcess WorkingDirectory="{x:Null}" Arguments="[in_SummaryOfSchedulesFirstPagePDFFilePath]" DisplayName="Start Process - Open First Page of Summary Of Schedules PDF in Adobe Acrobat Reader" FileName="C:\Program Files (x86)\Adobe\Acrobat Reader DC\Reader\acrord32.exe" sap:VirtualizedContainerService.HintSize="781.333333333333,86.6666666666667" sap2010:WorkflowViewState.IdRef="StartProcess_1" />
+    <Assign sap:VirtualizedContainerService.HintSize="781.333333333333,62" sap2010:WorkflowViewState.IdRef="Assign_2">
       <Assign.To>
         <OutArgument x:TypeArguments="s:String[]">[DataPointToPullArr]</OutArgument>
       </Assign.To>
@@ -85,7 +85,7 @@
         <InArgument x:TypeArguments="s:String[]">[{"Total Assets", "Total Liabilities"}]</InArgument>
       </Assign.Value>
     </Assign>
-    <Assign sap:VirtualizedContainerService.HintSize="860,62" sap2010:WorkflowViewState.IdRef="Assign_3">
+    <Assign sap:VirtualizedContainerService.HintSize="781.333333333333,62" sap2010:WorkflowViewState.IdRef="Assign_3">
       <Assign.To>
         <OutArgument x:TypeArguments="x:Int32">[DataPointToPullIndex]</OutArgument>
       </Assign.To>
@@ -93,7 +93,7 @@
         <InArgument x:TypeArguments="x:Int32">0</InArgument>
       </Assign.Value>
     </Assign>
-    <Assign sap:VirtualizedContainerService.HintSize="860,62" sap2010:WorkflowViewState.IdRef="Assign_4">
+    <Assign sap:VirtualizedContainerService.HintSize="781.333333333333,62" sap2010:WorkflowViewState.IdRef="Assign_4">
       <Assign.To>
         <OutArgument x:TypeArguments="s:String[]">[out_DataRowToAddArr]</OutArgument>
       </Assign.To>
@@ -101,19 +101,19 @@
         <InArgument x:TypeArguments="s:String[]">[new String(1){}]</InArgument>
       </Assign.Value>
     </Assign>
-    <ui:WindowScope ApplicationWindow="{x:Null}" SearchScope="{x:Null}" TimeoutMS="{x:Null}" Window="{x:Null}" DisplayName="Attach Window - Adobe Acrobat Reader" sap:VirtualizedContainerService.HintSize="860,4510" sap2010:WorkflowViewState.IdRef="WindowScope_1" Selector="&lt;wnd app='acrord32.exe' cls='AcrobatSDIWindow' title='*' /&gt;">
+    <ui:WindowScope ApplicationWindow="{x:Null}" SearchScope="{x:Null}" TimeoutMS="{x:Null}" Window="{x:Null}" DisplayName="Attach Window - Adobe Acrobat Reader" sap:VirtualizedContainerService.HintSize="781.333333333333,2796" sap2010:WorkflowViewState.IdRef="WindowScope_1" Selector="&lt;wnd app='acrord32.exe' cls='AcrobatSDIWindow' title='*' /&gt;">
       <ui:WindowScope.Body>
         <ActivityAction x:TypeArguments="x:Object">
           <ActivityAction.Argument>
             <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
           </ActivityAction.Argument>
-          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="826,4402" sap2010:WorkflowViewState.IdRef="Sequence_8">
+          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="747.333333333333,2688" sap2010:WorkflowViewState.IdRef="Sequence_8">
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
-            <ui:SendHotkey ClickBeforeTyping="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" EmptyField="{x:Null}" SendWindowMessages="{x:Null}" Activate="True" DisplayName="Send Hotkey - Go to End of First Page of Summary of Schedules" sap:VirtualizedContainerService.HintSize="784,117.333333333333" sap2010:WorkflowViewState.IdRef="SendHotkey_1" Key="end" KeyModifiers="Ctrl" SpecialKey="True">
+            <ui:SendHotkey ClickBeforeTyping="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" EmptyField="{x:Null}" SendWindowMessages="{x:Null}" Activate="True" DisplayName="Send Hotkey - Go to End of First Page of Summary of Schedules" sap:VirtualizedContainerService.HintSize="705.333333333333,117.333333333333" sap2010:WorkflowViewState.IdRef="SendHotkey_1" Key="end" KeyModifiers="Ctrl" SpecialKey="True">
               <ui:SendHotkey.Target>
                 <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Selector="{x:Null}" Id="7b85628a-8cde-4f0a-b0ad-922f8752b901" WaitForReady="COMPLETE">
                   <ui:Target.TimeoutMS>
@@ -122,21 +122,21 @@
                 </ui:Target>
               </ui:SendHotkey.Target>
             </ui:SendHotkey>
-            <ui:InterruptibleDoWhile DisplayName="Do While" sap:VirtualizedContainerService.HintSize="784,4044.66666666667" sap2010:WorkflowViewState.IdRef="InterruptibleDoWhile_1">
+            <ui:InterruptibleDoWhile DisplayName="Do While" sap:VirtualizedContainerService.HintSize="705.333333333333,2330.66666666667" sap2010:WorkflowViewState.IdRef="InterruptibleDoWhile_1">
               <ui:InterruptibleDoWhile.Body>
-                <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="747.333333333333,3875.33333333333" sap2010:WorkflowViewState.IdRef="Sequence_7">
+                <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="668.666666666667,2161.33333333333" sap2010:WorkflowViewState.IdRef="Sequence_7">
                   <sap:WorkflowViewStateService.ViewState>
                     <scg:Dictionary x:TypeArguments="x:String, x:Object">
                       <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                     </scg:Dictionary>
                   </sap:WorkflowViewStateService.ViewState>
-                  <Sequence DisplayName="Sequence - Pinpoint Debtor/Joint Debtor Data Point on First Page of Summary Of Schedules PDF" sap:VirtualizedContainerService.HintSize="705.333333333333,2457.33333333333" sap2010:WorkflowViewState.IdRef="Sequence_2">
+                  <Sequence DisplayName="Sequence - Pinpoint Debtor/Joint Debtor Data Point on First Page of Summary Of Schedules PDF" sap:VirtualizedContainerService.HintSize="626.666666666667,1084" sap2010:WorkflowViewState.IdRef="Sequence_2">
                     <sap:WorkflowViewStateService.ViewState>
                       <scg:Dictionary x:TypeArguments="x:String, x:Object">
                         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                       </scg:Dictionary>
                     </sap:WorkflowViewStateService.ViewState>
-                    <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="663.333333333333,400.666666666667" sap2010:WorkflowViewState.IdRef="TryCatch_3">
+                    <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="584.666666666667,400.666666666667" sap2010:WorkflowViewState.IdRef="TryCatch_3">
                       <TryCatch.Try>
                         <ui:FindOCRText DisplayName="Find OCR Text Position - Debtor/Joint Debtor Data Point" Element="[FoundDataPoint]" sap:VirtualizedContainerService.HintSize="334,162.666666666667" sap2010:WorkflowViewState.IdRef="FindOCRText_3" Occurrence="1" Text="[DataPointToPullArr(DataPointToPullIndex)]">
                           <ui:FindOCRText.OCREngine>
@@ -169,51 +169,7 @@
                         </Catch>
                       </TryCatch.Catches>
                     </TryCatch>
-                    <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="663.333333333333,571.333333333333" sap2010:WorkflowViewState.IdRef="CommentOut_2">
-                      <ui:CommentOut.Body>
-                        <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="480.666666666667,492.666666666667" sap2010:WorkflowViewState.IdRef="Sequence_9">
-                          <sap:WorkflowViewStateService.ViewState>
-                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                            </scg:Dictionary>
-                          </sap:WorkflowViewStateService.ViewState>
-                          <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="438.666666666667,400.666666666667" sap2010:WorkflowViewState.IdRef="TryCatch_5">
-                            <TryCatch.Try>
-                              <ui:FindOCRText DisplayName="Find OCR Text Position - Debtor/Joint Debtor Data Point" Element="[FoundDataPoint]" sap:VirtualizedContainerService.HintSize="334,162.666666666667" sap2010:WorkflowViewState.IdRef="FindOCRText_5" Occurrence="1" Text="[DataPointToPullArr(DataPointToPullIndex)]">
-                                <ui:FindOCRText.OCREngine>
-                                  <ActivityFunc x:TypeArguments="sd:Image, scg:IEnumerable(scg:KeyValuePair(sd:Rectangle, x:String))">
-                                    <ActivityFunc.Argument>
-                                      <DelegateInArgument x:TypeArguments="sd:Image" Name="Image" />
-                                    </ActivityFunc.Argument>
-                                    <ui:MicrosoftOCR FilterRegion="{x:Null}" Language="{x:Null}" Output="{x:Null}" Profile="{x:Null}" Scale="{x:Null}" Text="{x:Null}" ComputeSkewAngle="False" DisplayName="Microsoft OCR" ExtractWords="True" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="MicrosoftOCR_4" Image="[Image]" />
-                                  </ActivityFunc>
-                                </ui:FindOCRText.OCREngine>
-                                <ui:FindOCRText.Target>
-                                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Selector="{x:Null}" Id="ce052c89-8868-488b-b1fc-a91f258f9f7a" TimeoutMS="10000" WaitForReady="COMPLETE" />
-                                </ui:FindOCRText.Target>
-                              </ui:FindOCRText>
-                            </TryCatch.Try>
-                            <TryCatch.Catches>
-                              <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="404.666666666667,22" sap2010:WorkflowViewState.IdRef="Catch`1_5">
-                                <sap:WorkflowViewStateService.ViewState>
-                                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                                    <x:Boolean x:Key="IsExpanded">False</x:Boolean>
-                                    <x:Boolean x:Key="IsPinned">False</x:Boolean>
-                                  </scg:Dictionary>
-                                </sap:WorkflowViewStateService.ViewState>
-                                <ActivityAction x:TypeArguments="s:Exception">
-                                  <ActivityAction.Argument>
-                                    <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
-                                  </ActivityAction.Argument>
-                                  <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,94.6666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_5" Level="Error" Message="[String.Format(&quot;Error extracting {0} from PDF of first page of summary of schedules: {1}&quot;, DataPointToPullArr(DataPointToPullIndex), exception.Message)]" />
-                                </ActivityAction>
-                              </Catch>
-                            </TryCatch.Catches>
-                          </TryCatch>
-                        </Sequence>
-                      </ui:CommentOut.Body>
-                    </ui:CommentOut>
-                    <If Condition="[FoundDataPoint Is Nothing]" sap:VirtualizedContainerService.HintSize="663.333333333333,551.333333333333" sap2010:WorkflowViewState.IdRef="If_5">
+                    <If Condition="[FoundDataPoint Is Nothing]" sap:VirtualizedContainerService.HintSize="584.666666666667,551.333333333333" sap2010:WorkflowViewState.IdRef="If_5">
                       <If.Then>
                         <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="438.666666666667,400.666666666667" sap2010:WorkflowViewState.IdRef="TryCatch_4">
                           <TryCatch.Try>
@@ -250,69 +206,21 @@
                         </TryCatch>
                       </If.Then>
                     </If>
-                    <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="663.333333333333,722" sap2010:WorkflowViewState.IdRef="CommentOut_3">
-                      <ui:CommentOut.Body>
-                        <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="626.666666666667,643.333333333333" sap2010:WorkflowViewState.IdRef="Sequence_10">
-                          <sap:WorkflowViewStateService.ViewState>
-                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                            </scg:Dictionary>
-                          </sap:WorkflowViewStateService.ViewState>
-                          <If Condition="[FoundDataPoint Is Nothing]" sap:VirtualizedContainerService.HintSize="584.666666666667,551.333333333333" sap2010:WorkflowViewState.IdRef="If_6">
-                            <If.Then>
-                              <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="438.666666666667,400.666666666667" sap2010:WorkflowViewState.IdRef="TryCatch_6">
-                                <TryCatch.Try>
-                                  <ui:FindOCRText DisplayName="Find OCR Text Position - Uppercase Debtor/Joint Debtor Data Point" Element="[FoundDataPoint]" sap:VirtualizedContainerService.HintSize="334,162.666666666667" sap2010:WorkflowViewState.IdRef="FindOCRText_6" Occurrence="1" Text="[DataPointToPullArr(DataPointToPullIndex).ToUpper]">
-                                    <ui:FindOCRText.OCREngine>
-                                      <ActivityFunc x:TypeArguments="sd:Image, scg:IEnumerable(scg:KeyValuePair(sd:Rectangle, x:String))">
-                                        <ActivityFunc.Argument>
-                                          <DelegateInArgument x:TypeArguments="sd:Image" Name="Image" />
-                                        </ActivityFunc.Argument>
-                                        <ui:MicrosoftOCR FilterRegion="{x:Null}" Language="{x:Null}" Output="{x:Null}" Profile="{x:Null}" Scale="{x:Null}" Text="{x:Null}" ComputeSkewAngle="False" DisplayName="Microsoft OCR" ExtractWords="True" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="MicrosoftOCR_5" Image="[Image]" />
-                                      </ActivityFunc>
-                                    </ui:FindOCRText.OCREngine>
-                                    <ui:FindOCRText.Target>
-                                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Selector="{x:Null}" Id="ce052c89-8868-488b-b1fc-a91f258f9f7a" TimeoutMS="10000" WaitForReady="COMPLETE" />
-                                    </ui:FindOCRText.Target>
-                                  </ui:FindOCRText>
-                                </TryCatch.Try>
-                                <TryCatch.Catches>
-                                  <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="404.666666666667,22" sap2010:WorkflowViewState.IdRef="Catch`1_6">
-                                    <sap:WorkflowViewStateService.ViewState>
-                                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                                        <x:Boolean x:Key="IsExpanded">False</x:Boolean>
-                                        <x:Boolean x:Key="IsPinned">False</x:Boolean>
-                                      </scg:Dictionary>
-                                    </sap:WorkflowViewStateService.ViewState>
-                                    <ActivityAction x:TypeArguments="s:Exception">
-                                      <ActivityAction.Argument>
-                                        <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
-                                      </ActivityAction.Argument>
-                                      <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,94.6666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_6" Level="Error" Message="[String.Format(&quot;Error extracting {0} from PDF of first page of summary of schedules: {1}&quot;, DataPointToPullArr(DataPointToPullIndex).ToUpper, exception.Message)]" />
-                                    </ActivityAction>
-                                  </Catch>
-                                </TryCatch.Catches>
-                              </TryCatch>
-                            </If.Then>
-                          </If>
-                        </Sequence>
-                      </ui:CommentOut.Body>
-                    </ui:CommentOut>
                   </Sequence>
-                  <If Condition="[FoundDataPoint Is Nothing]" sap:VirtualizedContainerService.HintSize="705.333333333333,980" sap2010:WorkflowViewState.IdRef="If_4">
+                  <If Condition="[FoundDataPoint Is Nothing]" sap:VirtualizedContainerService.HintSize="626.666666666667,639.333333333333" sap2010:WorkflowViewState.IdRef="If_4">
                     <If.Else>
-                      <Sequence DisplayName="Sequence - Extract Debtor/Joint Debtor Data Point OCR Text" sap:VirtualizedContainerService.HintSize="478.666666666667,829.333333333333" sap2010:WorkflowViewState.IdRef="Sequence_6">
+                      <Sequence DisplayName="Sequence - Extract Debtor/Joint Debtor Data Point OCR Text" sap:VirtualizedContainerService.HintSize="376,488.666666666667" sap2010:WorkflowViewState.IdRef="Sequence_6">
                         <sap:WorkflowViewStateService.ViewState>
                           <scg:Dictionary x:TypeArguments="x:String, x:Object">
                             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                           </scg:Dictionary>
                         </sap:WorkflowViewStateService.ViewState>
-                        <ui:SetClippingRegion Region="{x:Null}" Direction="RIGHT" DisplayName="Set Clipping Region" Element="[FoundDataPoint]" sap:VirtualizedContainerService.HintSize="436.666666666667,22" sap2010:WorkflowViewState.IdRef="SetClippingRegion_1">
+                        <ui:SetClippingRegion Region="{x:Null}" Direction="RIGHT" DisplayName="Set Clipping Region" Element="[FoundDataPoint]" sap:VirtualizedContainerService.HintSize="334,22" sap2010:WorkflowViewState.IdRef="SetClippingRegion_1">
                           <ui:SetClippingRegion.Size>
                             <ui:Region Rectangle="0, 0, 500, 0" />
                           </ui:SetClippingRegion.Size>
                         </ui:SetClippingRegion>
-                        <ui:GetOCRText WordsInfo="{x:Null}" DisplayName="Get OCR Text - Debtor/Joint Debtor Data Point" sap:VirtualizedContainerService.HintSize="436.666666666667,130" sap2010:WorkflowViewState.IdRef="GetOCRText_2">
+                        <ui:GetOCRText WordsInfo="{x:Null}" DisplayName="Get OCR Text - Debtor/Joint Debtor Data Point" sap:VirtualizedContainerService.HintSize="334,130" sap2010:WorkflowViewState.IdRef="GetOCRText_2">
                           <ui:GetOCRText.OCREngine>
                             <ActivityFunc x:TypeArguments="sd:Image, scg:IEnumerable(scg:KeyValuePair(sd:Rectangle, x:String))">
                               <ActivityFunc.Argument>
@@ -332,39 +240,8 @@
                             <OutArgument x:TypeArguments="x:String">[DataPointText]</OutArgument>
                           </ui:GetOCRText.Text>
                         </ui:GetOCRText>
-                        <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="436.666666666667,300.666666666667" sap2010:WorkflowViewState.IdRef="CommentOut_4">
-                          <ui:CommentOut.Body>
-                            <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="376,222" sap2010:WorkflowViewState.IdRef="Sequence_11">
-                              <sap:WorkflowViewStateService.ViewState>
-                                <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                                </scg:Dictionary>
-                              </sap:WorkflowViewStateService.ViewState>
-                              <ui:GetOCRText WordsInfo="{x:Null}" DisplayName="Get OCR Text - Debtor/Joint Debtor Data Point" sap:VirtualizedContainerService.HintSize="334,130" sap2010:WorkflowViewState.IdRef="GetOCRText_1">
-                                <ui:GetOCRText.OCREngine>
-                                  <ActivityFunc x:TypeArguments="sd:Image, scg:IEnumerable(scg:KeyValuePair(sd:Rectangle, x:String))">
-                                    <ActivityFunc.Argument>
-                                      <DelegateInArgument x:TypeArguments="sd:Image" Name="Image" />
-                                    </ActivityFunc.Argument>
-                                    <ui:MicrosoftOCR FilterRegion="{x:Null}" Language="{x:Null}" Output="{x:Null}" Profile="{x:Null}" Scale="{x:Null}" Text="{x:Null}" ComputeSkewAngle="False" DisplayName="Microsoft OCR" ExtractWords="False" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="MicrosoftOCR_3" Image="[Image]" />
-                                  </ActivityFunc>
-                                </ui:GetOCRText.OCREngine>
-                                <ui:GetOCRText.Target>
-                                  <ui:Target ClippingRegion="{x:Null}" Selector="{x:Null}" Element="[FoundDataPoint]" Id="14774161-f5c3-4aad-9250-5e6f169bff77" TimeoutMS="10000">
-                                    <ui:Target.WaitForReady>
-                                      <InArgument x:TypeArguments="ui:WaitForReady" />
-                                    </ui:Target.WaitForReady>
-                                  </ui:Target>
-                                </ui:GetOCRText.Target>
-                                <ui:GetOCRText.Text>
-                                  <OutArgument x:TypeArguments="x:String">[DataPointText]</OutArgument>
-                                </ui:GetOCRText.Text>
-                              </ui:GetOCRText>
-                            </Sequence>
-                          </ui:CommentOut.Body>
-                        </ui:CommentOut>
-                        <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="436.666666666667,62.6666666666667" sap2010:WorkflowViewState.IdRef="WriteLine_1" Text="[String.Format(&quot;{0}: {1}&quot;, DataPointToPullArr(DataPointToPullIndex), DataPointText)]" />
-                        <Assign sap:VirtualizedContainerService.HintSize="436.666666666667,62" sap2010:WorkflowViewState.IdRef="Assign_5">
+                        <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="334,62.6666666666667" sap2010:WorkflowViewState.IdRef="WriteLine_1" Text="[String.Format(&quot;{0}: {1}&quot;, DataPointToPullArr(DataPointToPullIndex), DataPointText)]" />
+                        <Assign sap:VirtualizedContainerService.HintSize="334,62" sap2010:WorkflowViewState.IdRef="Assign_5">
                           <Assign.To>
                             <OutArgument x:TypeArguments="x:String">[out_DataRowToAddArr(DataPointToPullIndex)]</OutArgument>
                           </Assign.To>
@@ -375,7 +252,7 @@
                       </Sequence>
                     </If.Else>
                   </If>
-                  <Assign sap:VirtualizedContainerService.HintSize="705.333333333333,62" sap2010:WorkflowViewState.IdRef="Assign_6">
+                  <Assign sap:VirtualizedContainerService.HintSize="626.666666666667,62" sap2010:WorkflowViewState.IdRef="Assign_6">
                     <Assign.To>
                       <OutArgument x:TypeArguments="x:Int32">[DataPointToPullIndex]</OutArgument>
                     </Assign.To>
@@ -383,7 +260,7 @@
                       <InArgument x:TypeArguments="x:Int32">[DataPointToPullIndex + 1]</InArgument>
                     </Assign.Value>
                   </Assign>
-                  <Assign sap:VirtualizedContainerService.HintSize="705.333333333333,62" sap2010:WorkflowViewState.IdRef="Assign_7">
+                  <Assign sap:VirtualizedContainerService.HintSize="626.666666666667,62" sap2010:WorkflowViewState.IdRef="Assign_7">
                     <Assign.To>
                       <OutArgument x:TypeArguments="ui:UiElement">[FoundDataPoint]</OutArgument>
                     </Assign.To>
@@ -391,7 +268,7 @@
                       <InArgument x:TypeArguments="ui:UiElement">[Nothing]</InArgument>
                     </Assign.Value>
                   </Assign>
-                  <Assign sap:VirtualizedContainerService.HintSize="705.333333333333,62" sap2010:WorkflowViewState.IdRef="Assign_8">
+                  <Assign sap:VirtualizedContainerService.HintSize="626.666666666667,62" sap2010:WorkflowViewState.IdRef="Assign_8">
                     <Assign.To>
                       <OutArgument x:TypeArguments="x:String">[DataPointText]</OutArgument>
                     </Assign.To>
@@ -402,10 +279,10 @@
                 </Sequence>
               </ui:InterruptibleDoWhile.Body>
               <ui:InterruptibleDoWhile.Condition>
-                <mva:VisualBasicValue x:TypeArguments="x:Boolean" ExpressionText="DataPointToPullIndex &lt; 2" sap2010:WorkflowViewState.IdRef="VisualBasicValue`1_1" />
+                <mva:VisualBasicValue x:TypeArguments="x:Boolean" ExpressionText="DataPointToPullIndex &lt; DataPointToPullArr.Length" />
               </ui:InterruptibleDoWhile.Condition>
             </ui:InterruptibleDoWhile>
-            <ui:CloseApplication DisplayName="Close Application" sap:VirtualizedContainerService.HintSize="784,68" sap2010:WorkflowViewState.IdRef="CloseApplication_1">
+            <ui:CloseApplication DisplayName="Close Application" sap:VirtualizedContainerService.HintSize="705.333333333333,68" sap2010:WorkflowViewState.IdRef="CloseApplication_1">
               <ui:CloseApplication.Target>
                 <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Selector="{x:Null}" Id="2ae7295c-059b-4005-a9de-79dc49a75313">
                   <ui:Target.TimeoutMS>
