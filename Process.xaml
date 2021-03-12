@@ -7,7 +7,7 @@
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1323.33333333333,827.333333333333</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1234,906.666666666667</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>ProcessTransaction_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="24">
@@ -68,11 +68,12 @@
       <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="Invoke major steps of the business process, which are usually implemented by multiple subworkflows.&#xA;&#xA;If a BusinessRuleException is thrown, the transaction is skipped. &#xA;If another kind of exception occurs, the current transaction can be retried. " DisplayName="Process" sap:VirtualizedContainerService.HintSize="421.333333333333,688" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence sap2010:Annotation.AnnotationText="Invoke major steps of the business process, which are usually implemented by multiple subworkflows.&#xA;&#xA;If a BusinessRuleException is thrown, the transaction is skipped. &#xA;If another kind of exception occurs, the current transaction can be retried. " DisplayName="Process" sap:VirtualizedContainerService.HintSize="421.333333333333,842" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:String" Name="DebtorZIPCode" />
       <Variable x:TypeArguments="x:String" Name="DebtorSpouseTotalCombinedMonthlyIncome" />
-      <Variable x:TypeArguments="s:String[]" Name="DataRowToAddArr" />
+      <Variable x:TypeArguments="s:String[]" Name="DebtorSpouseTotalAssetsLiabilitiesArr" />
+      <Variable x:TypeArguments="x:String" Name="BankruptcyFilingAttorneyFee" />
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -106,10 +107,20 @@
           <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_TransactionItem(&quot;Summary of Schedules First Page PDF File Path&quot;).ToString" />
         </InArgument>
         <OutArgument x:TypeArguments="s:String[]" x:Key="out_DataRowToAddArr">
-          <mva:VisualBasicReference x:TypeArguments="s:String[]" ExpressionText="DataRowToAddArr" />
+          <mva:VisualBasicReference x:TypeArguments="s:String[]" ExpressionText="DebtorSpouseTotalAssetsLiabilitiesArr" />
         </OutArgument>
       </ui:InvokeWorkflowFile.Arguments>
     </ui:InvokeWorkflowFile>
-    <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{in_TransactionItem(&quot;Debtor Name&quot;).ToString, DebtorZIPCode, DebtorSpouseTotalCombinedMonthlyIncome, DataRowToAddArr(0), DataRowToAddArr(1), in_TransactionItem(&quot;Petition Number&quot;).ToString}]" DataTable="[io_BankruptcyFilingDataDT]" DisplayName="Add Data Row - BankruptcyFilingDataDT" sap:VirtualizedContainerService.HintSize="379.333333333333,22" sap2010:WorkflowViewState.IdRef="AddDataRow_1" />
+    <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke PullDisclosureOfAttorneyFeeDataMicrosoftOCR workflow" sap:VirtualizedContainerService.HintSize="379.333333333333,114" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_7" UnSafe="False" WorkflowFileName="Components\MicrosoftOCR\PullDisclosureOfAttorneyFeeDataMicrosoftOCR.xaml">
+      <ui:InvokeWorkflowFile.Arguments>
+        <InArgument x:TypeArguments="x:String" x:Key="in_DisclosureofAttorneyFeesFirstPagePDFFilePath">
+          <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_TransactionItem(&quot;Disclosure of Attorney Fees First Page PDF File Path&quot;).ToString" />
+        </InArgument>
+        <OutArgument x:TypeArguments="x:String" x:Key="out_BankruptcyFilingAttorneyFee">
+          <mva:VisualBasicReference x:TypeArguments="x:String" ExpressionText="BankruptcyFilingAttorneyFee" />
+        </OutArgument>
+      </ui:InvokeWorkflowFile.Arguments>
+    </ui:InvokeWorkflowFile>
+    <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{in_TransactionItem(&quot;Debtor Name&quot;).ToString, DebtorZIPCode, DebtorSpouseTotalCombinedMonthlyIncome, DebtorSpouseTotalAssetsLiabilitiesArr(0), DebtorSpouseTotalAssetsLiabilitiesArr(1), BankruptcyFilingAttorneyFee, in_TransactionItem(&quot;Petition Number&quot;).ToString}]" DataTable="[io_BankruptcyFilingDataDT]" DisplayName="Add Data Row - BankruptcyFilingDataDT" sap:VirtualizedContainerService.HintSize="379.333333333333,22" sap2010:WorkflowViewState.IdRef="AddDataRow_1" />
   </Sequence>
 </Activity>
