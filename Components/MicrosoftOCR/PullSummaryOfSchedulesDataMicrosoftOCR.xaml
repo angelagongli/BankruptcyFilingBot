@@ -6,7 +6,7 @@
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1323.33333333333,3385.33333333333</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1234,3385.33333333333</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>PullSummaryOfSchedulesData_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="30">
@@ -279,7 +279,7 @@
                 </Sequence>
               </ui:InterruptibleDoWhile.Body>
               <ui:InterruptibleDoWhile.Condition>
-                <mva:VisualBasicValue x:TypeArguments="x:Boolean" ExpressionText="DataPointToPullIndex &lt; 2" sap2010:WorkflowViewState.IdRef="VisualBasicValue`1_1" />
+                <mva:VisualBasicValue x:TypeArguments="x:Boolean" ExpressionText="DataPointToPullIndex &lt; DataPointToPullArr.Length" />
               </ui:InterruptibleDoWhile.Condition>
             </ui:InterruptibleDoWhile>
             <ui:CloseApplication DisplayName="Close Application" sap:VirtualizedContainerService.HintSize="705.333333333333,68" sap2010:WorkflowViewState.IdRef="CloseApplication_1">
