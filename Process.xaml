@@ -1,16 +1,18 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="Process" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="Process" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
     <x:Property sap2010:Annotation.AnnotationText="Transaction item to be processed." Name="in_TransactionItem" Type="InArgument(sd:DataRow)" />
     <x:Property sap2010:Annotation.AnnotationText="Dictionary structure to store configuration data of the process (settings, constants and assets)." Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
     <x:Property Name="io_BankruptcyFilingDataDT" Type="InOutArgument(sd:DataTable)" />
+    <x:Property Name="in_PickUpFromSavepointStep" Type="InArgument(x:Int32)" />
+    <x:Property Name="in_PickUpFromSavepointData" Type="InArgument(s:String[])" />
   </x:Members>
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1288.66666666667,1123.33333333333</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1342,3621.33333333333</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>ProcessTransaction_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
-    <scg:List x:TypeArguments="x:String" Capacity="60">
+    <scg:List x:TypeArguments="x:String" Capacity="32">
       <x:String>System.Activities</x:String>
       <x:String>System.Activities.Statements</x:String>
       <x:String>System.Activities.Expressions</x:String>
@@ -46,7 +48,7 @@
     </scg:List>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
-    <scg:List x:TypeArguments="AssemblyReference" Capacity="58">
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="30">
       <AssemblyReference>System.Activities</AssemblyReference>
       <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
       <AssemblyReference>mscorlib</AssemblyReference>
@@ -76,15 +78,17 @@
       <AssemblyReference>UiPath.Platform</AssemblyReference>
       <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
       <AssemblyReference>UiPath.Excel.Activities</AssemblyReference>
+      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="Invoke major steps of the business process, which are usually implemented by multiple subworkflows.&#xA;&#xA;If a BusinessRuleException is thrown, the transaction is skipped. &#xA;If another kind of exception occurs, the current transaction can be retried. " DisplayName="Process" sap:VirtualizedContainerService.HintSize="421.333333333333,1058.66666666667" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence sap2010:Annotation.AnnotationText="Invoke major steps of the business process, which are usually implemented by multiple subworkflows.&#xA;&#xA;If a BusinessRuleException is thrown, the transaction is skipped. &#xA;If another kind of exception occurs, the current transaction can be retried. " DisplayName="Process" sap:VirtualizedContainerService.HintSize="813.333333333333,3556.66666666667" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:String" Name="DebtorZIPCode" />
       <Variable x:TypeArguments="x:String" Name="DebtorSpouseTotalCombinedMonthlyIncome" />
       <Variable x:TypeArguments="x:String" Name="BankruptcyFilingAttorneyFee" />
       <Variable x:TypeArguments="x:String" Name="DebtorSpouseTotalAssets" />
       <Variable x:TypeArguments="x:String" Name="DebtorSpouseTotalLiabilities" />
+      <Variable x:TypeArguments="x:Int32" Name="ColumnIndex" />
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -92,33 +96,170 @@
         <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke PullVoluntaryPetitionData_Attended workflow" sap:VirtualizedContainerService.HintSize="379.333333333333,114" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_8" UnSafe="False" WorkflowFileName="Components\PullVoluntaryPetitionData_Attended.xaml">
+    <Assign sap:VirtualizedContainerService.HintSize="771.333333333333,62" sap2010:WorkflowViewState.IdRef="Assign_2">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:Int32">[ColumnIndex]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:Int32">0</InArgument>
+      </Assign.Value>
+    </Assign>
+    <ui:InterruptibleDoWhile Condition="[ColumnIndex &lt; 5]" DisplayName="Do While" sap:VirtualizedContainerService.HintSize="771.333333333333,478" sap2010:WorkflowViewState.IdRef="InterruptibleDoWhile_1">
+      <ui:InterruptibleDoWhile.Body>
+        <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="376,308.666666666667" sap2010:WorkflowViewState.IdRef="Sequence_3">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <ui:WriteCell Cell="[Chr(Asc(&quot;A&quot;) + ColumnIndex).ToString + &quot;1&quot;]" DisplayName="Write Cell - Set Initial State in SavepointData Sheet" sap:VirtualizedContainerService.HintSize="334,114.666666666667" sap2010:WorkflowViewState.IdRef="WriteCell_6" SheetName="SavepointData" Text="*" WorkbookPath="[String.Format(&quot;{0}\BankruptcyFilingDataFromPDF.XLSX&quot;, in_Config(&quot;OutputFolderPath&quot;))]" />
+          <Assign sap:VirtualizedContainerService.HintSize="334,62" sap2010:WorkflowViewState.IdRef="Assign_3">
+            <Assign.To>
+              <OutArgument x:TypeArguments="x:Int32">[ColumnIndex]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="x:Int32">[ColumnIndex + 1]</InArgument>
+            </Assign.Value>
+          </Assign>
+        </Sequence>
+      </ui:InterruptibleDoWhile.Body>
+    </ui:InterruptibleDoWhile>
+    <If Condition="[in_PickUpFromSavepointStep &lt; 1]" sap:VirtualizedContainerService.HintSize="771.333333333333,514.666666666667" sap2010:WorkflowViewState.IdRef="If_1">
+      <If.Then>
+        <Sequence DisplayName="Sequence - Pull Debtor's ZIP Code from Voluntary Petition" sap:VirtualizedContainerService.HintSize="421.333333333333,360.666666666667" sap2010:WorkflowViewState.IdRef="Sequence_4">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke PullVoluntaryPetitionData_Attended workflow" sap:VirtualizedContainerService.HintSize="379.333333333333,114" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_8" UnSafe="False" WorkflowFileName="Components\PullVoluntaryPetitionData_Attended.xaml">
+            <ui:InvokeWorkflowFile.Arguments>
+              <InArgument x:TypeArguments="x:String" x:Key="in_VoluntaryPetitionFirstPagePDFFilePath">[in_TransactionItem("Voluntary Petition First Page PDF File Path").ToString]</InArgument>
+              <OutArgument x:TypeArguments="x:String" x:Key="out_DebtorZIPCode">[DebtorZIPCode]</OutArgument>
+            </ui:InvokeWorkflowFile.Arguments>
+          </ui:InvokeWorkflowFile>
+          <ui:WriteCell Cell="A1" DisplayName="Write Cell - Save Debtor's ZIP Code in SavepointData Sheet" sap:VirtualizedContainerService.HintSize="379.333333333333,114.666666666667" sap2010:WorkflowViewState.IdRef="WriteCell_1" SheetName="SavepointData" Text="[DebtorZIPCode]" WorkbookPath="[String.Format(&quot;{0}\BankruptcyFilingDataFromPDF.XLSX&quot;, in_Config(&quot;OutputFolderPath&quot;))]" />
+        </Sequence>
+      </If.Then>
+      <If.Else>
+        <Assign sap:VirtualizedContainerService.HintSize="262,62" sap2010:WorkflowViewState.IdRef="Assign_4">
+          <Assign.To>
+            <OutArgument x:TypeArguments="x:String">[DebtorZIPCode]</OutArgument>
+          </Assign.To>
+          <Assign.Value>
+            <InArgument x:TypeArguments="x:String">[in_PickUpFromSavepointData(0)]</InArgument>
+          </Assign.Value>
+        </Assign>
+      </If.Else>
+    </If>
+    <If Condition="[in_PickUpFromSavepointStep &lt; 2]" sap:VirtualizedContainerService.HintSize="771.333333333333,514.666666666667" sap2010:WorkflowViewState.IdRef="If_2">
+      <If.Then>
+        <Sequence DisplayName="Sequence - Pull Debtor's/Debtor's Spouse's Total Combined Monthly Income from Schedule I" sap:VirtualizedContainerService.HintSize="398.666666666667,360.666666666667" sap2010:WorkflowViewState.IdRef="Sequence_5">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke PullScheduleIData_Attended workflow" sap:VirtualizedContainerService.HintSize="356.666666666667,114" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_9" UnSafe="False" WorkflowFileName="Components\PullScheduleIData_Attended.xaml">
+            <ui:InvokeWorkflowFile.Arguments>
+              <InArgument x:TypeArguments="x:String" x:Key="in_ScheduleIFirstPagePDFFilePath">[in_TransactionItem("Schedule I First Page PDF File Path").ToString]</InArgument>
+              <OutArgument x:TypeArguments="x:String" x:Key="out_DebtorSpouseTotalCombinedMonthlyIncome">[DebtorSpouseTotalCombinedMonthlyIncome]</OutArgument>
+            </ui:InvokeWorkflowFile.Arguments>
+          </ui:InvokeWorkflowFile>
+          <ui:WriteCell Cell="B1" DisplayName="Write Cell - Save Debtor's/Debtor's Spouse's Total Combined Monthly Income in SavepointData Sheet" sap:VirtualizedContainerService.HintSize="356.666666666667,114.666666666667" sap2010:WorkflowViewState.IdRef="WriteCell_2" SheetName="SavepointData" Text="[DebtorSpouseTotalCombinedMonthlyIncome]" WorkbookPath="[String.Format(&quot;{0}\BankruptcyFilingDataFromPDF.XLSX&quot;, in_Config(&quot;OutputFolderPath&quot;))]" />
+        </Sequence>
+      </If.Then>
+      <If.Else>
+        <Assign sap:VirtualizedContainerService.HintSize="262,62" sap2010:WorkflowViewState.IdRef="Assign_5">
+          <Assign.To>
+            <OutArgument x:TypeArguments="x:String">[DebtorSpouseTotalCombinedMonthlyIncome]</OutArgument>
+          </Assign.To>
+          <Assign.Value>
+            <InArgument x:TypeArguments="x:String">[in_PickUpFromSavepointData(1)]</InArgument>
+          </Assign.Value>
+        </Assign>
+      </If.Else>
+    </If>
+    <If Condition="[in_PickUpFromSavepointStep &lt; 4]" sap:VirtualizedContainerService.HintSize="771.333333333333,669.333333333333" sap2010:WorkflowViewState.IdRef="If_3">
+      <If.Then>
+        <Sequence DisplayName="Sequence - Pull Debtor's/Debtor's Spouse's Total Assets/Liabilities from Summary of Schedules" sap:VirtualizedContainerService.HintSize="421.333333333333,515.333333333333" sap2010:WorkflowViewState.IdRef="Sequence_6">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke PullSummaryOfSchedulesData_Attended workflow" sap:VirtualizedContainerService.HintSize="379.333333333333,114" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_10" UnSafe="False" WorkflowFileName="Components\PullSummaryOfSchedulesData_Attended.xaml">
+            <ui:InvokeWorkflowFile.Arguments>
+              <InArgument x:TypeArguments="x:String" x:Key="in_SummaryOfSchedulesFirstPagePDFFilePath">[in_TransactionItem("Summary of Schedules First Page PDF File Path").ToString]</InArgument>
+              <OutArgument x:TypeArguments="x:String" x:Key="out_DebtorSpouseTotalAssets">[DebtorSpouseTotalAssets]</OutArgument>
+              <OutArgument x:TypeArguments="x:String" x:Key="out_DebtorSpouseTotalLiabilities">[DebtorSpouseTotalLiabilities]</OutArgument>
+            </ui:InvokeWorkflowFile.Arguments>
+          </ui:InvokeWorkflowFile>
+          <ui:WriteCell Cell="C1" DisplayName="Write Cell - Save Debtor's/Debtor's Spouse's Total Assets in SavepointData Sheet" sap:VirtualizedContainerService.HintSize="379.333333333333,114.666666666667" sap2010:WorkflowViewState.IdRef="WriteCell_3" SheetName="SavepointData" Text="[DebtorSpouseTotalAssets]" WorkbookPath="[String.Format(&quot;{0}\BankruptcyFilingDataFromPDF.XLSX&quot;, in_Config(&quot;OutputFolderPath&quot;))]" />
+          <ui:WriteCell Cell="D1" DisplayName="Write Cell - Save Debtor's/Debtor's Spouse's Total Liabilities in SavepointData Sheet" sap:VirtualizedContainerService.HintSize="379.333333333333,114.666666666667" sap2010:WorkflowViewState.IdRef="WriteCell_4" SheetName="SavepointData" Text="[DebtorSpouseTotalLiabilities]" WorkbookPath="[String.Format(&quot;{0}\BankruptcyFilingDataFromPDF.XLSX&quot;, in_Config(&quot;OutputFolderPath&quot;))]" />
+        </Sequence>
+      </If.Then>
+      <If.Else>
+        <Sequence DisplayName="Sequence - Set Debtor's/Debtor's Spouse's Total Assets/Liabilities from Savepoint Data" sap:VirtualizedContainerService.HintSize="304,256" sap2010:WorkflowViewState.IdRef="Sequence_7">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <Assign sap:VirtualizedContainerService.HintSize="262,62" sap2010:WorkflowViewState.IdRef="Assign_6">
+            <Assign.To>
+              <OutArgument x:TypeArguments="x:String">[DebtorSpouseTotalAssets]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="x:String">[in_PickUpFromSavepointData(2)]</InArgument>
+            </Assign.Value>
+          </Assign>
+          <Assign sap:VirtualizedContainerService.HintSize="262,62" sap2010:WorkflowViewState.IdRef="Assign_8">
+            <Assign.To>
+              <OutArgument x:TypeArguments="x:String">[DebtorSpouseTotalLiabilities]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="x:String">[in_PickUpFromSavepointData(3)]</InArgument>
+            </Assign.Value>
+          </Assign>
+        </Sequence>
+      </If.Else>
+    </If>
+    <If Condition="[in_PickUpFromSavepointStep &lt; 5]" sap:VirtualizedContainerService.HintSize="771.333333333333,514.666666666667" sap2010:WorkflowViewState.IdRef="If_4">
+      <If.Then>
+        <Sequence DisplayName="Sequence - Pull Bankruptcy Filing Attorney Fee from Disclosure of Attorney Fee" sap:VirtualizedContainerService.HintSize="421.333333333333,360.666666666667" sap2010:WorkflowViewState.IdRef="Sequence_8">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke PullDisclosureOfAttorneyFeeData_Attended workflow" sap:VirtualizedContainerService.HintSize="379.333333333333,114" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_11" UnSafe="False" WorkflowFileName="Components\PullDisclosureOfAttorneyFeeData_Attended.xaml">
+            <ui:InvokeWorkflowFile.Arguments>
+              <InArgument x:TypeArguments="x:String" x:Key="in_DisclosureofAttorneyFeesFirstPagePDFFilePath">[in_TransactionItem("Disclosure of Attorney Fees First Page PDF File Path").ToString]</InArgument>
+              <OutArgument x:TypeArguments="x:String" x:Key="out_BankruptcyFilingAttorneyFee">[BankruptcyFilingAttorneyFee]</OutArgument>
+            </ui:InvokeWorkflowFile.Arguments>
+          </ui:InvokeWorkflowFile>
+          <ui:WriteCell Cell="E1" DisplayName="Write Cell - Save Bankruptcy Filing Attorney Fee in SavepointData Sheet" sap:VirtualizedContainerService.HintSize="379.333333333333,114.666666666667" sap2010:WorkflowViewState.IdRef="WriteCell_5" SheetName="SavepointData" Text="[BankruptcyFilingAttorneyFee]" WorkbookPath="[String.Format(&quot;{0}\BankruptcyFilingDataFromPDF.XLSX&quot;, in_Config(&quot;OutputFolderPath&quot;))]" />
+        </Sequence>
+      </If.Then>
+      <If.Else>
+        <Assign sap:VirtualizedContainerService.HintSize="262,62" sap2010:WorkflowViewState.IdRef="Assign_9">
+          <Assign.To>
+            <OutArgument x:TypeArguments="x:String">[BankruptcyFilingAttorneyFee]</OutArgument>
+          </Assign.To>
+          <Assign.Value>
+            <InArgument x:TypeArguments="x:String">[in_PickUpFromSavepointData(4)]</InArgument>
+          </Assign.Value>
+        </Assign>
+      </If.Else>
+    </If>
+    <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{in_TransactionItem(&quot;Debtor Name&quot;).ToString, DebtorZIPCode, DebtorSpouseTotalCombinedMonthlyIncome, DebtorSpouseTotalAssets, DebtorSpouseTotalLiabilities, BankruptcyFilingAttorneyFee, in_TransactionItem(&quot;Petition Number&quot;).ToString}]" DataTable="[io_BankruptcyFilingDataDT]" DisplayName="Add Data Row - BankruptcyFilingDataDT" sap:VirtualizedContainerService.HintSize="771.333333333333,22" sap2010:WorkflowViewState.IdRef="AddDataRow_2" />
+    <ui:AppendRange DataTable="[io_BankruptcyFilingDataDT]" DisplayName="Append Range - BankruptcyFilingDataDT" sap:VirtualizedContainerService.HintSize="771.333333333333,114.666666666667" sap2010:WorkflowViewState.IdRef="AppendRange_1" SheetName="[in_Config(&quot;DataSheetName&quot;).ToString]" WorkbookPath="[String.Format(&quot;{0}\BankruptcyFilingDataFromPDF.XLSX&quot;, in_Config(&quot;OutputFolderPath&quot;))]" />
+    <ui:ClearDataTable DataTable="[io_BankruptcyFilingDataDT]" DisplayName="Clear Data Table - BankruptcyFilingDataDT" sap:VirtualizedContainerService.HintSize="771.333333333333,22" sap2010:WorkflowViewState.IdRef="ClearDataTable_1" />
+    <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke ClearSavepointDataInExcelWorkbook workflow" sap:VirtualizedContainerService.HintSize="771.333333333333,114" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_12" UnSafe="False" WorkflowFileName="Components\ClearSavepointDataInExcelWorkbook.xaml">
       <ui:InvokeWorkflowFile.Arguments>
-        <InArgument x:TypeArguments="x:String" x:Key="in_VoluntaryPetitionFirstPagePDFFilePath">[in_TransactionItem("Voluntary Petition First Page PDF File Path").ToString]</InArgument>
-        <OutArgument x:TypeArguments="x:String" x:Key="out_DebtorZIPCode">[DebtorZIPCode]</OutArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="in_OutputFolderPath">[in_Config("OutputFolderPath").ToString]</InArgument>
       </ui:InvokeWorkflowFile.Arguments>
     </ui:InvokeWorkflowFile>
-    <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke PullScheduleIData_Attended workflow" sap:VirtualizedContainerService.HintSize="379.333333333333,114" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_9" UnSafe="False" WorkflowFileName="Components\PullScheduleIData_Attended.xaml">
-      <ui:InvokeWorkflowFile.Arguments>
-        <InArgument x:TypeArguments="x:String" x:Key="in_ScheduleIFirstPagePDFFilePath">[in_TransactionItem("Schedule I First Page PDF File Path").ToString]</InArgument>
-        <OutArgument x:TypeArguments="x:String" x:Key="out_DebtorSpouseTotalCombinedMonthlyIncome">[DebtorSpouseTotalCombinedMonthlyIncome]</OutArgument>
-      </ui:InvokeWorkflowFile.Arguments>
-    </ui:InvokeWorkflowFile>
-    <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke PullSummaryOfSchedulesData_Attended workflow" sap:VirtualizedContainerService.HintSize="379.333333333333,114" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_10" UnSafe="False" WorkflowFileName="Components\PullSummaryOfSchedulesData_Attended.xaml">
-      <ui:InvokeWorkflowFile.Arguments>
-        <InArgument x:TypeArguments="x:String" x:Key="in_SummaryOfSchedulesFirstPagePDFFilePath">[in_TransactionItem("Summary of Schedules First Page PDF File Path").ToString]</InArgument>
-        <OutArgument x:TypeArguments="x:String" x:Key="out_DebtorSpouseTotalAssets">[DebtorSpouseTotalAssets]</OutArgument>
-        <OutArgument x:TypeArguments="x:String" x:Key="out_DebtorSpouseTotalLiabilities">[DebtorSpouseTotalLiabilities]</OutArgument>
-      </ui:InvokeWorkflowFile.Arguments>
-    </ui:InvokeWorkflowFile>
-    <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke PullDisclosureOfAttorneyFeeData_Attended workflow" sap:VirtualizedContainerService.HintSize="379.333333333333,114" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_11" UnSafe="False" WorkflowFileName="Components\PullDisclosureOfAttorneyFeeData_Attended.xaml">
-      <ui:InvokeWorkflowFile.Arguments>
-        <InArgument x:TypeArguments="x:String" x:Key="in_DisclosureofAttorneyFeesFirstPagePDFFilePath">[in_TransactionItem("Disclosure of Attorney Fees First Page PDF File Path").ToString]</InArgument>
-        <OutArgument x:TypeArguments="x:String" x:Key="out_BankruptcyFilingAttorneyFee">[BankruptcyFilingAttorneyFee]</OutArgument>
-      </ui:InvokeWorkflowFile.Arguments>
-    </ui:InvokeWorkflowFile>
-    <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{in_TransactionItem(&quot;Debtor Name&quot;).ToString, DebtorZIPCode, DebtorSpouseTotalCombinedMonthlyIncome, DebtorSpouseTotalAssets, DebtorSpouseTotalLiabilities, BankruptcyFilingAttorneyFee, in_TransactionItem(&quot;Petition Number&quot;).ToString}]" DataTable="[io_BankruptcyFilingDataDT]" DisplayName="Add Data Row - BankruptcyFilingDataDT" sap:VirtualizedContainerService.HintSize="379.333333333333,22" sap2010:WorkflowViewState.IdRef="AddDataRow_2" />
-    <ui:AppendRange DataTable="[io_BankruptcyFilingDataDT]" DisplayName="Append Range - BankruptcyFilingDataDT" sap:VirtualizedContainerService.HintSize="379.333333333333,114.666666666667" sap2010:WorkflowViewState.IdRef="AppendRange_1" SheetName="[in_Config(&quot;DataSheetName&quot;).ToString]" WorkbookPath="[String.Format(&quot;{0}\BankruptcyFilingDataFromPDF.XLSX&quot;, in_Config(&quot;OutputFolderPath&quot;))]" />
-    <ui:ClearDataTable DataTable="[io_BankruptcyFilingDataDT]" DisplayName="Clear Data Table - BankruptcyFilingDataDT" sap:VirtualizedContainerService.HintSize="379.333333333333,22" sap2010:WorkflowViewState.IdRef="ClearDataTable_1" />
   </Sequence>
 </Activity>
