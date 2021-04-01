@@ -206,9 +206,9 @@
             </scg:Dictionary>
           </sap:WorkflowViewStateService.ViewState>
           <Transition.To>
-            <State x:Name="__ReferenceID2" sap2010:Annotation.AnnotationText="Process a single transaction. &#xA;The result of the processing can be: 1) Success, 2) Business Exception, 3) System Exception. &#xA;In the case of a system exception, the transaction can be automatically retried." DisplayName="Process Transaction" sap:VirtualizedContainerService.HintSize="1551.33333333333,2122.66666666667" sap2010:WorkflowViewState.IdRef="State_3">
+            <State x:Name="__ReferenceID2" sap2010:Annotation.AnnotationText="Process a single transaction. &#xA;The result of the processing can be: 1) Success, 2) Business Exception, 3) System Exception. &#xA;In the case of a system exception, the transaction can be automatically retried." DisplayName="Process Transaction" sap:VirtualizedContainerService.HintSize="1992,3528.66666666667" sap2010:WorkflowViewState.IdRef="State_3">
               <State.Entry>
-                <TryCatch DisplayName="Try to process transaction" sap:VirtualizedContainerService.HintSize="1504.66666666667,1632.66666666667" sap2010:WorkflowViewState.IdRef="TryCatch_9">
+                <TryCatch DisplayName="Try to process transaction" sap:VirtualizedContainerService.HintSize="1945.33333333333,3038.66666666667" sap2010:WorkflowViewState.IdRef="TryCatch_9">
                   <sap:WorkflowViewStateService.ViewState>
                     <scg:Dictionary x:TypeArguments="x:String, x:Object">
                       <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -216,16 +216,21 @@
                     </scg:Dictionary>
                   </sap:WorkflowViewStateService.ViewState>
                   <TryCatch.Try>
-                    <Sequence DisplayName="Process the current TransactionItem" sap:VirtualizedContainerService.HintSize="1466,1371.33333333333" sap2010:WorkflowViewState.IdRef="Sequence_28">
+                    <Sequence DisplayName="Process the current TransactionItem" sap:VirtualizedContainerService.HintSize="1906.66666666667,2777.33333333333" sap2010:WorkflowViewState.IdRef="Sequence_28">
                       <Sequence.Variables>
                         <Variable x:TypeArguments="x:String" Name="ContinueChosenButton" />
+                        <Variable x:TypeArguments="scg:List(x:String)" Name="SheetNameArr" />
+                        <Variable x:TypeArguments="x:Boolean" Name="SavepointSheetExists" />
+                        <Variable x:TypeArguments="x:Int32" Name="ColumnIndex" />
+                        <Variable x:TypeArguments="s:String[]" Name="PickUpFromSavepointData" />
+                        <Variable x:TypeArguments="x:String" Name="SavepointDataPoint" />
                       </Sequence.Variables>
                       <sap:WorkflowViewStateService.ViewState>
                         <scg:Dictionary x:TypeArguments="x:String, x:Object">
                           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                         </scg:Dictionary>
                       </sap:WorkflowViewStateService.ViewState>
-                      <Assign DisplayName="Assign BusinessException" sap:VirtualizedContainerService.HintSize="1424,62" sap2010:WorkflowViewState.IdRef="Assign_25">
+                      <Assign DisplayName="Assign BusinessException" sap:VirtualizedContainerService.HintSize="1864.66666666667,62" sap2010:WorkflowViewState.IdRef="Assign_25">
                         <Assign.To>
                           <OutArgument x:TypeArguments="ui:BusinessRuleException">[BusinessException]</OutArgument>
                         </Assign.To>
@@ -233,21 +238,137 @@
                           <InArgument x:TypeArguments="ui:BusinessRuleException">[Nothing]</InArgument>
                         </Assign.Value>
                       </Assign>
-                      <ui:WriteRange AddHeaders="True" DataTable="[TransactionData]" DisplayName="Write Range - TransactionData" sap:VirtualizedContainerService.HintSize="1424,114.666666666667" sap2010:WorkflowViewState.IdRef="WriteRange_5" SheetName="TransactionData" StartingCell="A1" WorkbookPath="[String.Format(&quot;{0}\BankruptcyFilingDataFromPDF.XLSX&quot;, Config(&quot;OutputFolderPath&quot;))]" />
-                      <If Condition="[TransactionNumber = 1]" sap:VirtualizedContainerService.HintSize="1424,766.666666666667" sap2010:WorkflowViewState.IdRef="If_18">
+                      <ui:WriteRange AddHeaders="True" DataTable="[TransactionData]" DisplayName="Write Range - TransactionData" sap:VirtualizedContainerService.HintSize="1864.66666666667,114.666666666667" sap2010:WorkflowViewState.IdRef="WriteRange_5" SheetName="TransactionData" StartingCell="A1" WorkbookPath="[String.Format(&quot;{0}\BankruptcyFilingDataFromPDF.XLSX&quot;, Config(&quot;OutputFolderPath&quot;))]" />
+                      <If Condition="[TransactionNumber = 1]" sap:VirtualizedContainerService.HintSize="1864.66666666667,2172.66666666667" sap2010:WorkflowViewState.IdRef="If_18">
                         <If.Then>
-                          <Sequence DisplayName="Sequence - Check for Savepoint on First Transaction When Re-Entering Automation/Picking Up from Earlier" sap:VirtualizedContainerService.HintSize="376,359.333333333333" sap2010:WorkflowViewState.IdRef="Sequence_43">
+                          <Sequence DisplayName="Sequence - Check for Savepoint on First Transaction When Re-Entering Automation/Picking Up from Earlier" sap:VirtualizedContainerService.HintSize="816.666666666667,2018.66666666667" sap2010:WorkflowViewState.IdRef="Sequence_43">
                             <sap:WorkflowViewStateService.ViewState>
                               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                               </scg:Dictionary>
                             </sap:WorkflowViewStateService.ViewState>
-                            <ui:Comment sap:VirtualizedContainerService.HintSize="334,113.333333333333" sap2010:WorkflowViewState.IdRef="Comment_3" Text="@TODO: Define Savepoint in Transaction to Roll Back to When Coming Back to Pulling Data Following Suddenly Breaking the Automation" />
-                            <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke Process workflow" sap:VirtualizedContainerService.HintSize="334,114" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_43" UnSafe="False" WorkflowFileName="Process.xaml">
+                            <ui:Comment sap:VirtualizedContainerService.HintSize="774.666666666667,113.333333333333" sap2010:WorkflowViewState.IdRef="Comment_3" Text="@TODO: Define Savepoint in Transaction to Roll Back to When Coming Back to Pulling Data Following Suddenly Breaking the Automation" />
+                            <ui:ExcelApplicationScope Password="{x:Null}" DisplayName="Excel Application Scope" sap:VirtualizedContainerService.HintSize="774.666666666667,324.666666666667" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_2" InstanceCachePeriod="3000" WorkbookPath="[String.Format(&quot;{0}\BankruptcyFilingDataFromPDF.XLSX&quot;, Config(&quot;OutputFolderPath&quot;))]">
+                              <ui:ExcelApplicationScope.Body>
+                                <ActivityAction x:TypeArguments="ui:WorkbookApplication">
+                                  <ActivityAction.Argument>
+                                    <DelegateInArgument x:TypeArguments="ui:WorkbookApplication" Name="ExcelWorkbookScope" />
+                                  </ActivityAction.Argument>
+                                  <Sequence DisplayName="Do - Pull All Sheet Name in BankruptcyFilingDataFromPDF Excel Workbook" sap:VirtualizedContainerService.HintSize="304,216" sap2010:WorkflowViewState.IdRef="Sequence_46">
+                                    <sap:WorkflowViewStateService.ViewState>
+                                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                      </scg:Dictionary>
+                                    </sap:WorkflowViewStateService.ViewState>
+                                    <ui:ExcelGetWorkbookSheets DisplayName="Get Workbook Sheets - BankruptcyFilingDataFromPDF Excel Workbook" sap:VirtualizedContainerService.HintSize="262,22" sap2010:WorkflowViewState.IdRef="ExcelGetWorkbookSheets_2" Sheets="[SheetNameArr]" />
+                                    <Assign sap:VirtualizedContainerService.HintSize="262,62" sap2010:WorkflowViewState.IdRef="Assign_33">
+                                      <Assign.To>
+                                        <OutArgument x:TypeArguments="x:Boolean">[SavepointSheetExists]</OutArgument>
+                                      </Assign.To>
+                                      <Assign.Value>
+                                        <InArgument x:TypeArguments="x:Boolean">[SheetNameArr.Contains("SavepointData")]</InArgument>
+                                      </Assign.Value>
+                                    </Assign>
+                                  </Sequence>
+                                </ActivityAction>
+                              </ui:ExcelApplicationScope.Body>
+                            </ui:ExcelApplicationScope>
+                            <If Condition="[SavepointSheetExists]" sap:VirtualizedContainerService.HintSize="774.666666666667,1254.66666666667" sap2010:WorkflowViewState.IdRef="If_20">
+                              <If.Then>
+                                <Sequence DisplayName="Sequence - Pull Savepoint Data from Savepoint Sheet in Excel Workbook" sap:VirtualizedContainerService.HintSize="628.666666666667,1100.66666666667" sap2010:WorkflowViewState.IdRef="Sequence_50">
+                                  <sap:WorkflowViewStateService.ViewState>
+                                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                    </scg:Dictionary>
+                                  </sap:WorkflowViewStateService.ViewState>
+                                  <Assign sap:VirtualizedContainerService.HintSize="586.666666666667,62" sap2010:WorkflowViewState.IdRef="Assign_34">
+                                    <Assign.To>
+                                      <OutArgument x:TypeArguments="x:Int32">[ColumnIndex]</OutArgument>
+                                    </Assign.To>
+                                    <Assign.Value>
+                                      <InArgument x:TypeArguments="x:Int32">0</InArgument>
+                                    </Assign.Value>
+                                  </Assign>
+                                  <Assign sap:VirtualizedContainerService.HintSize="586.666666666667,62" sap2010:WorkflowViewState.IdRef="Assign_38">
+                                    <Assign.To>
+                                      <OutArgument x:TypeArguments="x:String">[SavepointDataPoint]</OutArgument>
+                                    </Assign.To>
+                                    <Assign.Value>
+                                      <InArgument x:TypeArguments="x:String">
+                                        <Literal x:TypeArguments="x:String" Value="" />
+                                      </InArgument>
+                                    </Assign.Value>
+                                  </Assign>
+                                  <Assign sap:VirtualizedContainerService.HintSize="586.666666666667,62" sap2010:WorkflowViewState.IdRef="Assign_37">
+                                    <Assign.To>
+                                      <OutArgument x:TypeArguments="s:String[]">[PickUpFromSavepointData]</OutArgument>
+                                    </Assign.To>
+                                    <Assign.Value>
+                                      <InArgument x:TypeArguments="s:String[]">[new String(4){}]</InArgument>
+                                    </Assign.Value>
+                                  </Assign>
+                                  <ui:InterruptibleDoWhile DisplayName="Do While" sap:VirtualizedContainerService.HintSize="586.666666666667,702.666666666667" sap2010:WorkflowViewState.IdRef="InterruptibleDoWhile_1">
+                                    <ui:InterruptibleDoWhile.Body>
+                                      <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="550,533.333333333333" sap2010:WorkflowViewState.IdRef="Sequence_47">
+                                        <sap:WorkflowViewStateService.ViewState>
+                                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                          </scg:Dictionary>
+                                        </sap:WorkflowViewStateService.ViewState>
+                                        <ui:ReadCell Cell="[Chr(Asc(&quot;A&quot;) + ColumnIndex).ToString + &quot;1&quot;]" DisplayName="Read Cell - Savepoint Data Point" sap:VirtualizedContainerService.HintSize="508,86.6666666666667" sap2010:WorkflowViewState.IdRef="ReadCell_1" SheetName="SavepointData" WorkbookPath="[String.Format(&quot;{0}\BankruptcyFilingDataFromPDF.XLSX&quot;, Config(&quot;OutputFolderPath&quot;))]">
+                                          <ui:ReadCell.Result>
+                                            <OutArgument x:TypeArguments="x:String">[SavepointDataPoint]</OutArgument>
+                                          </ui:ReadCell.Result>
+                                        </ui:ReadCell>
+                                        <If Condition="[SavepointDataPoint.Equals(&quot;*&quot;)]" sap:VirtualizedContainerService.HintSize="508,212.666666666667" sap2010:WorkflowViewState.IdRef="If_21">
+                                          <If.Then>
+                                            <ui:Break sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Break_1" />
+                                          </If.Then>
+                                          <If.Else>
+                                            <Assign sap:VirtualizedContainerService.HintSize="262,62" sap2010:WorkflowViewState.IdRef="Assign_39">
+                                              <Assign.To>
+                                                <OutArgument x:TypeArguments="x:String">[PickUpFromSavepointData(ColumnIndex)]</OutArgument>
+                                              </Assign.To>
+                                              <Assign.Value>
+                                                <InArgument x:TypeArguments="x:String">[SavepointDataPoint]</InArgument>
+                                              </Assign.Value>
+                                            </Assign>
+                                          </If.Else>
+                                        </If>
+                                        <Assign sap:VirtualizedContainerService.HintSize="508,62" sap2010:WorkflowViewState.IdRef="Assign_35">
+                                          <Assign.To>
+                                            <OutArgument x:TypeArguments="x:Int32">[ColumnIndex]</OutArgument>
+                                          </Assign.To>
+                                          <Assign.Value>
+                                            <InArgument x:TypeArguments="x:Int32">[ColumnIndex + 1]</InArgument>
+                                          </Assign.Value>
+                                        </Assign>
+                                      </Sequence>
+                                    </ui:InterruptibleDoWhile.Body>
+                                    <ui:InterruptibleDoWhile.Condition>
+                                      <mva:VisualBasicValue x:TypeArguments="x:Boolean" ExpressionText="ColumnIndex &lt; 5" />
+                                    </ui:InterruptibleDoWhile.Condition>
+                                  </ui:InterruptibleDoWhile>
+                                </Sequence>
+                              </If.Then>
+                            </If>
+                            <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke Process workflow" sap:VirtualizedContainerService.HintSize="774.666666666667,114" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_43" UnSafe="False" WorkflowFileName="Process.xaml">
                               <ui:InvokeWorkflowFile.Arguments>
-                                <InArgument x:TypeArguments="sd:DataRow" x:Key="in_TransactionItem">[TransactionItem]</InArgument>
-                                <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_Config">[Config]</InArgument>
-                                <InOutArgument x:TypeArguments="sd:DataTable" x:Key="io_BankruptcyFilingDataDT">[BankruptcyFilingDataDT]</InOutArgument>
+                                <InArgument x:TypeArguments="sd:DataRow" x:Key="in_TransactionItem">
+                                  <mva:VisualBasicValue x:TypeArguments="sd:DataRow" ExpressionText="TransactionItem" />
+                                </InArgument>
+                                <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_Config">
+                                  <mva:VisualBasicValue x:TypeArguments="scg:Dictionary(x:String, x:Object)" ExpressionText="Config" />
+                                </InArgument>
+                                <InOutArgument x:TypeArguments="sd:DataTable" x:Key="io_BankruptcyFilingDataDT">
+                                  <mva:VisualBasicReference x:TypeArguments="sd:DataTable" ExpressionText="BankruptcyFilingDataDT" />
+                                </InOutArgument>
+                                <InArgument x:TypeArguments="x:Int32" x:Key="in_PickUpFromSavepointStep">
+                                  <mva:VisualBasicValue x:TypeArguments="x:Int32" ExpressionText="ColumnIndex" />
+                                </InArgument>
+                                <InArgument x:TypeArguments="s:String[]" x:Key="in_PickUpFromSavepointData">
+                                  <mva:VisualBasicValue x:TypeArguments="s:String[]" ExpressionText="PickUpFromSavepointData" />
+                                </InArgument>
                               </ui:InvokeWorkflowFile.Arguments>
                             </ui:InvokeWorkflowFile>
                           </Sequence>
@@ -266,9 +387,19 @@
                                   <If.Then>
                                     <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke Process workflow" sap:VirtualizedContainerService.HintSize="334,114" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_34" UnSafe="False" WorkflowFileName="Process.xaml">
                                       <ui:InvokeWorkflowFile.Arguments>
-                                        <InArgument x:TypeArguments="sd:DataRow" x:Key="in_TransactionItem">[TransactionItem]</InArgument>
-                                        <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_Config">[Config]</InArgument>
-                                        <InOutArgument x:TypeArguments="sd:DataTable" x:Key="io_BankruptcyFilingDataDT">[BankruptcyFilingDataDT]</InOutArgument>
+                                        <InArgument x:TypeArguments="sd:DataRow" x:Key="in_TransactionItem">
+                                          <mva:VisualBasicValue x:TypeArguments="sd:DataRow" ExpressionText="TransactionItem" />
+                                        </InArgument>
+                                        <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_Config">
+                                          <mva:VisualBasicValue x:TypeArguments="scg:Dictionary(x:String, x:Object)" ExpressionText="Config" />
+                                        </InArgument>
+                                        <InOutArgument x:TypeArguments="sd:DataTable" x:Key="io_BankruptcyFilingDataDT">
+                                          <mva:VisualBasicReference x:TypeArguments="sd:DataTable" ExpressionText="BankruptcyFilingDataDT" />
+                                        </InOutArgument>
+                                        <InArgument x:TypeArguments="x:Int32" x:Key="in_PickUpFromSavepointStep">
+                                          <Literal x:TypeArguments="x:Int32" />
+                                        </InArgument>
+                                        <InArgument x:TypeArguments="s:String[]" x:Key="in_PickUpFromSavepointData" />
                                       </ui:InvokeWorkflowFile.Arguments>
                                     </ui:InvokeWorkflowFile>
                                   </If.Then>
@@ -281,16 +412,26 @@
                             <If.Else>
                               <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke Process workflow" sap:VirtualizedContainerService.HintSize="334,114" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_37" UnSafe="False" WorkflowFileName="Process.xaml">
                                 <ui:InvokeWorkflowFile.Arguments>
-                                  <InArgument x:TypeArguments="sd:DataRow" x:Key="in_TransactionItem">[TransactionItem]</InArgument>
-                                  <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_Config">[Config]</InArgument>
-                                  <InOutArgument x:TypeArguments="sd:DataTable" x:Key="io_BankruptcyFilingDataDT">[BankruptcyFilingDataDT]</InOutArgument>
+                                  <InArgument x:TypeArguments="sd:DataRow" x:Key="in_TransactionItem">
+                                    <mva:VisualBasicValue x:TypeArguments="sd:DataRow" ExpressionText="TransactionItem" />
+                                  </InArgument>
+                                  <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_Config">
+                                    <mva:VisualBasicValue x:TypeArguments="scg:Dictionary(x:String, x:Object)" ExpressionText="Config" />
+                                  </InArgument>
+                                  <InOutArgument x:TypeArguments="sd:DataTable" x:Key="io_BankruptcyFilingDataDT">
+                                    <mva:VisualBasicReference x:TypeArguments="sd:DataTable" ExpressionText="BankruptcyFilingDataDT" />
+                                  </InOutArgument>
+                                  <InArgument x:TypeArguments="x:Int32" x:Key="in_PickUpFromSavepointStep">
+                                    <Literal x:TypeArguments="x:Int32" />
+                                  </InArgument>
+                                  <InArgument x:TypeArguments="s:String[]" x:Key="in_PickUpFromSavepointData" />
                                 </ui:InvokeWorkflowFile.Arguments>
                               </ui:InvokeWorkflowFile>
                             </If.Else>
                           </If>
                         </If.Else>
                       </If>
-                      <If Condition="[TransactionNumber = TransactionData.Rows.Count]" sap:VirtualizedContainerService.HintSize="1424,216" sap2010:WorkflowViewState.IdRef="If_15">
+                      <If Condition="[TransactionNumber = TransactionData.Rows.Count]" sap:VirtualizedContainerService.HintSize="1864.66666666667,216" sap2010:WorkflowViewState.IdRef="If_15">
                         <If.Then>
                           <Assign sap:VirtualizedContainerService.HintSize="262,62" sap2010:WorkflowViewState.IdRef="Assign_28">
                             <Assign.To>
@@ -305,7 +446,7 @@
                     </Sequence>
                   </TryCatch.Try>
                   <TryCatch.Catches>
-                    <Catch x:TypeArguments="ui:BusinessRuleException" sap:VirtualizedContainerService.HintSize="1470.66666666667,22" sap2010:WorkflowViewState.IdRef="Catch`1_9">
+                    <Catch x:TypeArguments="ui:BusinessRuleException" sap:VirtualizedContainerService.HintSize="1911.33333333333,22" sap2010:WorkflowViewState.IdRef="Catch`1_9">
                       <sap:WorkflowViewStateService.ViewState>
                         <scg:Dictionary x:TypeArguments="x:String, x:Object">
                           <x:Boolean x:Key="IsExpanded">False</x:Boolean>
@@ -326,7 +467,7 @@
                         </Assign>
                       </ActivityAction>
                     </Catch>
-                    <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="1470.66666666667,22" sap2010:WorkflowViewState.IdRef="Catch`1_10">
+                    <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="1911.33333333333,22" sap2010:WorkflowViewState.IdRef="Catch`1_10">
                       <sap:WorkflowViewStateService.ViewState>
                         <scg:Dictionary x:TypeArguments="x:String, x:Object">
                           <x:Boolean x:Key="IsExpanded">False</x:Boolean>
