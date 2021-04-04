@@ -2,6 +2,7 @@
   <x:Members>
     <x:Property Name="in_OutputFolderPath" Type="InArgument(x:String)" />
     <x:Property Name="in_TransactionData" Type="InArgument(sd:DataTable)" />
+    <x:Property Name="in_TransactionDataSheetName" Type="InArgument(x:String)" />
   </x:Members>
   <this:SaveTransactionDataInExcelWorkbook.in_OutputFolderPath>
     <InArgument x:TypeArguments="x:String" />
@@ -12,7 +13,7 @@
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1342,827.333333333333</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1388,827.333333333333</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>SaveTransactionDataInExcelWorkbook_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
@@ -77,18 +78,19 @@
       <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="SaveTransactionDataInExcelWorkbook" sap:VirtualizedContainerService.HintSize="421.333333333333,459.333333333333" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="SaveTransactionDataInExcelWorkbook" sap:VirtualizedContainerService.HintSize="756,613.333333333333" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke ClearTransactionDataInExcelWorkbook workflow" sap:VirtualizedContainerService.HintSize="379.333333333333,114" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="Components\ClearTransactionDataInExcelWorkbook.xaml">
+    <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke ClearTransactionDataInExcelWorkbook workflow" sap:VirtualizedContainerService.HintSize="714,114" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="Components\ClearTransactionDataInExcelWorkbook.xaml">
       <ui:InvokeWorkflowFile.Arguments>
         <InArgument x:TypeArguments="x:String" x:Key="in_OutputFolderPath">[in_OutputFolderPath]</InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="in_TransactionDataSheetName">[in_TransactionDataSheetName]</InArgument>
       </ui:InvokeWorkflowFile.Arguments>
     </ui:InvokeWorkflowFile>
-    <ui:FilterDataTable DataTable="[in_TransactionData]" DisplayName="Filter Data Table - Filter TransactionData by Completion" FilterRowsMode="Remove" sap:VirtualizedContainerService.HintSize="379.333333333333,58.6666666666667" sap2010:WorkflowViewState.IdRef="FilterDataTable_1" OutputDataTable="[in_TransactionData]" SelectColumnsMode="Keep">
+    <ui:FilterDataTable DataTable="[in_TransactionData]" DisplayName="Filter Data Table - Filter TransactionData by Completion" FilterRowsMode="Remove" sap:VirtualizedContainerService.HintSize="714,58.6666666666667" sap2010:WorkflowViewState.IdRef="FilterDataTable_1" OutputDataTable="[in_TransactionData]" SelectColumnsMode="Keep">
       <ui:FilterDataTable.Filters>
         <scg:List x:TypeArguments="ui:FilterOperationArgument" Capacity="4">
           <ui:FilterOperationArgument BooleanOperator="And" Operator="EQ">
@@ -107,6 +109,13 @@
         </scg:List>
       </ui:FilterDataTable.SelectColumns>
     </ui:FilterDataTable>
-    <ui:WriteRange AddHeaders="True" DataTable="[in_TransactionData]" DisplayName="Write Range - Write All Transaction Still Yet to Be Completed in TransactionData" sap:VirtualizedContainerService.HintSize="379.333333333333,114.666666666667" sap2010:WorkflowViewState.IdRef="WriteRange_1" SheetName="TransactionData" StartingCell="A1" WorkbookPath="[String.Format(&quot;{0}\BankruptcyFilingDataFromPDF.XLSX&quot;, in_OutputFolderPath)]" />
+    <If Condition="[in_TransactionData.Rows.Count &gt; 0]" sap:VirtualizedContainerService.HintSize="714,268.666666666667" sap2010:WorkflowViewState.IdRef="If_1">
+      <If.Then>
+        <ui:WriteRange AddHeaders="True" DataTable="[in_TransactionData]" DisplayName="Write Range - Write All Transaction Still Yet to Be Completed in TransactionData" sap:VirtualizedContainerService.HintSize="334,114.666666666667" sap2010:WorkflowViewState.IdRef="WriteRange_1" SheetName="[in_TransactionDataSheetName]" StartingCell="A1" WorkbookPath="[String.Format(&quot;{0}\BankruptcyFilingDataFromPDF.XLSX&quot;, in_OutputFolderPath)]" />
+      </If.Then>
+      <If.Else>
+        <ui:WriteCell Cell="A1" DisplayName="Write Cell - Write All TransactionData Processing Complete and Exception-Free" sap:VirtualizedContainerService.HintSize="334,114.666666666667" sap2010:WorkflowViewState.IdRef="WriteCell_1" SheetName="[in_TransactionDataSheetName]" Text="All Transaction Data Processing Complete and Exception-Free!" WorkbookPath="[String.Format(&quot;{0}\BankruptcyFilingDataFromPDF.XLSX&quot;, in_OutputFolderPath)]" />
+      </If.Else>
+    </If>
   </Sequence>
 </Activity>
