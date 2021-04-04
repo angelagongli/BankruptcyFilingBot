@@ -1,5 +1,5 @@
-Sub ClearTransactionData()
-    Sheets("TransactionData").Cells.Clear
+Sub ClearTransactionData(TransactionDataSheetName)
+    Sheets(TransactionDataSheetName).Cells.Clear
 End Sub
 
 Sub ClearSavepointData()
