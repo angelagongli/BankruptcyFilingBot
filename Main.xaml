@@ -5,7 +5,7 @@
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1388,864.666666666667</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1272,864.666666666667</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>Main2_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="35">
@@ -354,11 +354,24 @@
                             </If>
                             <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke Process workflow" sap:VirtualizedContainerService.HintSize="774.666666666667,114" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_43" UnSafe="False" WorkflowFileName="Process.xaml">
                               <ui:InvokeWorkflowFile.Arguments>
-                                <InArgument x:TypeArguments="sd:DataRow" x:Key="in_TransactionItem">[TransactionItem]</InArgument>
-                                <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_Config">[Config]</InArgument>
-                                <InOutArgument x:TypeArguments="sd:DataTable" x:Key="io_BankruptcyFilingDataDT">[BankruptcyFilingDataDT]</InOutArgument>
-                                <InArgument x:TypeArguments="x:Int32" x:Key="in_PickUpFromSavepointStep">[ColumnIndex]</InArgument>
-                                <InArgument x:TypeArguments="s:String[]" x:Key="in_PickUpFromSavepointData">[PickUpFromSavepointData]</InArgument>
+                                <InArgument x:TypeArguments="sd:DataRow" x:Key="in_TransactionItem">
+                                  <mva:VisualBasicValue x:TypeArguments="sd:DataRow" ExpressionText="TransactionItem" />
+                                </InArgument>
+                                <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_Config">
+                                  <mva:VisualBasicValue x:TypeArguments="scg:Dictionary(x:String, x:Object)" ExpressionText="Config" />
+                                </InArgument>
+                                <InOutArgument x:TypeArguments="sd:DataTable" x:Key="io_BankruptcyFilingDataDT">
+                                  <mva:VisualBasicReference x:TypeArguments="sd:DataTable" ExpressionText="BankruptcyFilingDataDT" />
+                                </InOutArgument>
+                                <InArgument x:TypeArguments="x:Int32" x:Key="in_PickUpFromSavepointStep">
+                                  <mva:VisualBasicValue x:TypeArguments="x:Int32" ExpressionText="ColumnIndex" />
+                                </InArgument>
+                                <InArgument x:TypeArguments="s:String[]" x:Key="in_PickUpFromSavepointData">
+                                  <mva:VisualBasicValue x:TypeArguments="s:String[]" ExpressionText="PickUpFromSavepointData" />
+                                </InArgument>
+                                <InOutArgument x:TypeArguments="sd:DataTable" x:Key="io_TransactionMarkedForReviewDT">
+                                  <mva:VisualBasicReference x:TypeArguments="sd:DataTable" ExpressionText="TransactionMarkedForReviewDT" />
+                                </InOutArgument>
                               </ui:InvokeWorkflowFile.Arguments>
                             </ui:InvokeWorkflowFile>
                           </Sequence>
@@ -377,11 +390,22 @@
                                   <If.Then>
                                     <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke Process workflow" sap:VirtualizedContainerService.HintSize="334,114" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_34" UnSafe="False" WorkflowFileName="Process.xaml">
                                       <ui:InvokeWorkflowFile.Arguments>
-                                        <InArgument x:TypeArguments="sd:DataRow" x:Key="in_TransactionItem">[TransactionItem]</InArgument>
-                                        <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_Config">[Config]</InArgument>
-                                        <InOutArgument x:TypeArguments="sd:DataTable" x:Key="io_BankruptcyFilingDataDT">[BankruptcyFilingDataDT]</InOutArgument>
-                                        <InArgument x:TypeArguments="x:Int32" x:Key="in_PickUpFromSavepointStep">0</InArgument>
+                                        <InArgument x:TypeArguments="sd:DataRow" x:Key="in_TransactionItem">
+                                          <mva:VisualBasicValue x:TypeArguments="sd:DataRow" ExpressionText="TransactionItem" />
+                                        </InArgument>
+                                        <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_Config">
+                                          <mva:VisualBasicValue x:TypeArguments="scg:Dictionary(x:String, x:Object)" ExpressionText="Config" />
+                                        </InArgument>
+                                        <InOutArgument x:TypeArguments="sd:DataTable" x:Key="io_BankruptcyFilingDataDT">
+                                          <mva:VisualBasicReference x:TypeArguments="sd:DataTable" ExpressionText="BankruptcyFilingDataDT" />
+                                        </InOutArgument>
+                                        <InArgument x:TypeArguments="x:Int32" x:Key="in_PickUpFromSavepointStep">
+                                          <Literal x:TypeArguments="x:Int32" />
+                                        </InArgument>
                                         <InArgument x:TypeArguments="s:String[]" x:Key="in_PickUpFromSavepointData" />
+                                        <InOutArgument x:TypeArguments="sd:DataTable" x:Key="io_TransactionMarkedForReviewDT">
+                                          <mva:VisualBasicReference x:TypeArguments="sd:DataTable" ExpressionText="TransactionMarkedForReviewDT" />
+                                        </InOutArgument>
                                       </ui:InvokeWorkflowFile.Arguments>
                                     </ui:InvokeWorkflowFile>
                                   </If.Then>
@@ -394,11 +418,22 @@
                             <If.Else>
                               <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke Process workflow" sap:VirtualizedContainerService.HintSize="334,114" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_37" UnSafe="False" WorkflowFileName="Process.xaml">
                                 <ui:InvokeWorkflowFile.Arguments>
-                                  <InArgument x:TypeArguments="sd:DataRow" x:Key="in_TransactionItem">[TransactionItem]</InArgument>
-                                  <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_Config">[Config]</InArgument>
-                                  <InOutArgument x:TypeArguments="sd:DataTable" x:Key="io_BankruptcyFilingDataDT">[BankruptcyFilingDataDT]</InOutArgument>
-                                  <InArgument x:TypeArguments="x:Int32" x:Key="in_PickUpFromSavepointStep">0</InArgument>
+                                  <InArgument x:TypeArguments="sd:DataRow" x:Key="in_TransactionItem">
+                                    <mva:VisualBasicValue x:TypeArguments="sd:DataRow" ExpressionText="TransactionItem" />
+                                  </InArgument>
+                                  <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_Config">
+                                    <mva:VisualBasicValue x:TypeArguments="scg:Dictionary(x:String, x:Object)" ExpressionText="Config" />
+                                  </InArgument>
+                                  <InOutArgument x:TypeArguments="sd:DataTable" x:Key="io_BankruptcyFilingDataDT">
+                                    <mva:VisualBasicReference x:TypeArguments="sd:DataTable" ExpressionText="BankruptcyFilingDataDT" />
+                                  </InOutArgument>
+                                  <InArgument x:TypeArguments="x:Int32" x:Key="in_PickUpFromSavepointStep">
+                                    <Literal x:TypeArguments="x:Int32" />
+                                  </InArgument>
                                   <InArgument x:TypeArguments="s:String[]" x:Key="in_PickUpFromSavepointData" />
+                                  <InOutArgument x:TypeArguments="sd:DataTable" x:Key="io_TransactionMarkedForReviewDT">
+                                    <mva:VisualBasicReference x:TypeArguments="sd:DataTable" ExpressionText="TransactionMarkedForReviewDT" />
+                                  </InOutArgument>
                                 </ui:InvokeWorkflowFile.Arguments>
                               </ui:InvokeWorkflowFile>
                             </If.Else>
@@ -524,7 +559,7 @@
                     <mva:VisualBasicValue x:TypeArguments="x:Boolean" ExpressionText="SystemException IsNot Nothing" sap2010:WorkflowViewState.IdRef="VisualBasicValue`1_3" />
                   </Transition.Condition>
                   <Transition.To>
-                    <State x:Name="__ReferenceID3" sap2010:Annotation.AnnotationText="Read configuration file and initialize applications used in the process." DisplayName="Initialization" sap:VirtualizedContainerService.HintSize="611.333333333333,1269.33333333333" sap2010:WorkflowViewState.IdRef="State_2">
+                    <State x:Name="__ReferenceID3" sap2010:Annotation.AnnotationText="Read configuration file and initialize applications used in the process." DisplayName="Initialization" sap:VirtualizedContainerService.HintSize="254,106.666666666667" sap2010:WorkflowViewState.IdRef="State_2">
                       <State.Entry>
                         <TryCatch DisplayName="Try initializing settings and applications" sap:VirtualizedContainerService.HintSize="564.666666666667,840" sap2010:WorkflowViewState.IdRef="TryCatch_2">
                           <sap:WorkflowViewStateService.ViewState>
@@ -558,7 +593,7 @@
                                   </scg:Dictionary>
                                 </sap:WorkflowViewStateService.ViewState>
                                 <If.Then>
-                                  <Sequence DisplayName="First run" sap:VirtualizedContainerService.HintSize="1006,3220" sap2010:WorkflowViewState.IdRef="Sequence_17">
+                                  <Sequence DisplayName="First run" sap:VirtualizedContainerService.HintSize="1006,3936.66666666667" sap2010:WorkflowViewState.IdRef="Sequence_17">
                                     <Sequence.Variables>
                                       <Variable x:TypeArguments="x:Boolean" Name="HaveStarted" />
                                       <Variable x:TypeArguments="x:Boolean" Name="InputFolderSheetExists" />
@@ -612,10 +647,13 @@
                                     </ui:InvokeWorkflowFile>
                                     <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke SetInputOutputFolderPath workflow" sap:VirtualizedContainerService.HintSize="964,114" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_33" UnSafe="False" WorkflowFileName="Components\SetInputOutputFolderPath.xaml">
                                       <ui:InvokeWorkflowFile.Arguments>
-                                        <InOutArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="io_Config">[Config]</InOutArgument>
+                                        <InOutArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="io_Config">
+                                          <mva:VisualBasicReference x:TypeArguments="scg:Dictionary(x:String, x:Object)" ExpressionText="Config" />
+                                        </InOutArgument>
                                       </ui:InvokeWorkflowFile.Arguments>
                                     </ui:InvokeWorkflowFile>
                                     <ui:BuildDataTable DataTable="[BankruptcyFilingDataDT]" DisplayName="Build Data Table - BankruptcyFilingDataDT" sap:VirtualizedContainerService.HintSize="964,58.6666666666667" sap2010:WorkflowViewState.IdRef="BuildDataTable_2" TableInfo="&lt;NewDataSet&gt;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xA;      &lt;xs:complexType&gt;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xA;            &lt;xs:complexType&gt;&#xA;              &lt;xs:sequence&gt;&#xA;                &lt;xs:element name=&quot;Debtor_x0020_Name&quot; msdata:Caption=&quot;&quot;&gt;&#xA;                  &lt;xs:simpleType&gt;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xA;                      &lt;xs:maxLength value=&quot;100&quot; /&gt;&#xA;                    &lt;/xs:restriction&gt;&#xA;                  &lt;/xs:simpleType&gt;&#xA;                &lt;/xs:element&gt;&#xA;                &lt;xs:element name=&quot;Debtor_x0020_ZIP_x0020_Code&quot; msdata:Caption=&quot;&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;Debtor_x002F_Joint_x0020_Debtor_x0020_Total_x0020_Combined_x0020_Monthly_x0020_Income&quot; msdata:Caption=&quot;&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;Debtor_x002F_Joint_x0020_Debtor_x0020_Total_x0020_Assets&quot; msdata:Caption=&quot;&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;Debtor_x002F_Joint_x0020_Debtor_x0020_Total_x0020_Liabilities&quot; msdata:Caption=&quot;&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;Bankruptcy_x0020_Filing_x0020_Attorney_x0020_Fee&quot; msdata:Caption=&quot;&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;Petition_x0020_Number&quot; msdata:Caption=&quot;&quot;&gt;&#xA;                  &lt;xs:simpleType&gt;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xA;                      &lt;xs:maxLength value=&quot;100&quot; /&gt;&#xA;                    &lt;/xs:restriction&gt;&#xA;                  &lt;/xs:simpleType&gt;&#xA;                &lt;/xs:element&gt;&#xA;              &lt;/xs:sequence&gt;&#xA;            &lt;/xs:complexType&gt;&#xA;          &lt;/xs:element&gt;&#xA;        &lt;/xs:choice&gt;&#xA;      &lt;/xs:complexType&gt;&#xA;    &lt;/xs:element&gt;&#xA;  &lt;/xs:schema&gt;&#xA;&lt;/NewDataSet&gt;" />
+                                    <ui:BuildDataTable DataTable="[TransactionMarkedForReviewDT]" DisplayName="Build Data Table - TransactionMarkedForReviewDT" sap:VirtualizedContainerService.HintSize="964,58.6666666666667" sap2010:WorkflowViewState.IdRef="BuildDataTable_3" TableInfo="&lt;NewDataSet&gt;&#xD;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xD;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xD;&#xA;      &lt;xs:complexType&gt;&#xD;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xD;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xD;&#xA;            &lt;xs:complexType&gt;&#xD;&#xA;              &lt;xs:sequence&gt;&#xD;&#xA;                &lt;xs:element name=&quot;Debtor_x0020_Name&quot; msdata:Caption=&quot;&quot;&gt;&#xD;&#xA;                  &lt;xs:simpleType&gt;&#xD;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xD;&#xA;                      &lt;xs:maxLength value=&quot;100&quot; /&gt;&#xD;&#xA;                    &lt;/xs:restriction&gt;&#xD;&#xA;                  &lt;/xs:simpleType&gt;&#xD;&#xA;                &lt;/xs:element&gt;&#xD;&#xA;                &lt;xs:element name=&quot;Debtor_x0020_ZIP_x0020_Code&quot; msdata:Caption=&quot;&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xD;&#xA;                &lt;xs:element name=&quot;Debtor_x002F_Joint_x0020_Debtor_x0020_Total_x0020_Combined_x0020_Monthly_x0020_Income&quot; msdata:Caption=&quot;&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xD;&#xA;                &lt;xs:element name=&quot;Debtor_x002F_Joint_x0020_Debtor_x0020_Total_x0020_Assets&quot; msdata:Caption=&quot;&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xD;&#xA;                &lt;xs:element name=&quot;Debtor_x002F_Joint_x0020_Debtor_x0020_Total_x0020_Liabilities&quot; msdata:Caption=&quot;&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xD;&#xA;                &lt;xs:element name=&quot;Bankruptcy_x0020_Filing_x0020_Attorney_x0020_Fee&quot; msdata:Caption=&quot;&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xD;&#xA;                &lt;xs:element name=&quot;Petition_x0020_Number&quot; msdata:Caption=&quot;&quot;&gt;&#xD;&#xA;                  &lt;xs:simpleType&gt;&#xD;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xD;&#xA;                      &lt;xs:maxLength value=&quot;100&quot; /&gt;&#xD;&#xA;                    &lt;/xs:restriction&gt;&#xD;&#xA;                  &lt;/xs:simpleType&gt;&#xD;&#xA;                &lt;/xs:element&gt;&#xD;&#xA;                &lt;xs:element name=&quot;Input_x0020_Folder_x0020_Path&quot; msdata:Caption=&quot;&quot; type=&quot;xs:string&quot; /&gt;&#xD;&#xA;                &lt;xs:element name=&quot;Review_x0020_Complete&quot; msdata:Caption=&quot;&quot; type=&quot;xs:boolean&quot; minOccurs=&quot;0&quot; /&gt;&#xD;&#xA;              &lt;/xs:sequence&gt;&#xD;&#xA;            &lt;/xs:complexType&gt;&#xD;&#xA;          &lt;/xs:element&gt;&#xD;&#xA;        &lt;/xs:choice&gt;&#xD;&#xA;      &lt;/xs:complexType&gt;&#xD;&#xA;    &lt;/xs:element&gt;&#xD;&#xA;  &lt;/xs:schema&gt;&#xD;&#xA;&lt;/NewDataSet&gt;" />
                                     <ui:PathExists DisplayName="Path Exists - BankruptcyFilingDataFromPDF Excel Workbook" Exists="[HaveStarted]" sap:VirtualizedContainerService.HintSize="964,90.6666666666667" sap2010:WorkflowViewState.IdRef="PathExists_1" Path="[String.Format(&quot;{0}\BankruptcyFilingDataFromPDF.XLSX&quot;, Config(&quot;OutputFolderPath&quot;))]" PathType="File" />
                                     <If Condition="[HaveStarted]" sap:VirtualizedContainerService.HintSize="964,478.666666666667" sap2010:WorkflowViewState.IdRef="If_17">
                                       <If.Then>
@@ -646,7 +684,7 @@
                                         </ui:ExcelApplicationScope>
                                       </If.Then>
                                     </If>
-                                    <If Condition="[HaveStarted And InputFolderSheetExists]" sap:VirtualizedContainerService.HintSize="964,1297.33333333333" sap2010:WorkflowViewState.IdRef="If_16">
+                                    <If Condition="[HaveStarted And InputFolderSheetExists]" sap:VirtualizedContainerService.HintSize="964,1915.33333333333" sap2010:WorkflowViewState.IdRef="If_16">
                                       <If.Then>
                                         <Sequence DisplayName="Sequence - Pull Only TransactionData Yet To Be Completed" sap:VirtualizedContainerService.HintSize="421.333333333333,431.333333333333" sap2010:WorkflowViewState.IdRef="Sequence_34">
                                           <sap:WorkflowViewStateService.ViewState>
@@ -676,18 +714,14 @@
                                           </ui:FilterDataTable>
                                           <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke ClearTransactionDataInExcelWorkbook workflow" sap:VirtualizedContainerService.HintSize="379.333333333333,114" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_36" UnSafe="False" WorkflowFileName="Components\ClearTransactionDataInExcelWorkbook.xaml">
                                             <ui:InvokeWorkflowFile.Arguments>
-                                              <InArgument x:TypeArguments="x:String" x:Key="in_OutputFolderPath">
-                                                <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="Config(&quot;OutputFolderPath&quot;).ToString" />
-                                              </InArgument>
-                                              <InArgument x:TypeArguments="x:String" x:Key="in_TransactionDataSheetName">
-                                                <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="Config(&quot;TransactionDataSheetName&quot;).ToString" />
-                                              </InArgument>
+                                              <InArgument x:TypeArguments="x:String" x:Key="in_OutputFolderPath">[Config("OutputFolderPath").ToString]</InArgument>
+                                              <InArgument x:TypeArguments="x:String" x:Key="in_TransactionDataSheetName">[Config("TransactionDataSheetName").ToString]</InArgument>
                                             </ui:InvokeWorkflowFile.Arguments>
                                           </ui:InvokeWorkflowFile>
                                         </Sequence>
                                       </If.Then>
                                       <If.Else>
-                                        <Sequence DisplayName="Sequence - Set Up All Required Bankruptcy Filing PDF Files/Folders and Define TransactionData" sap:VirtualizedContainerService.HintSize="496.666666666667,1143.33333333333" sap2010:WorkflowViewState.IdRef="Sequence_36">
+                                        <Sequence DisplayName="Sequence - Set Up All Required Bankruptcy Filing PDF Files/Folders and Define TransactionData" sap:VirtualizedContainerService.HintSize="496.666666666667,1761.33333333333" sap2010:WorkflowViewState.IdRef="Sequence_36">
                                           <sap:WorkflowViewStateService.ViewState>
                                             <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                               <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -705,7 +739,14 @@
                                               <InArgument x:TypeArguments="x:String" x:Key="in_InputFolderPath">[Config("InputFolderPath").ToString]</InArgument>
                                             </ui:InvokeWorkflowFile.Arguments>
                                           </ui:InvokeWorkflowFile>
-                                          <Sequence DisplayName="Sequence - Write BankruptcyFilingDataDT Column Name in Excel Workbook" sap:VirtualizedContainerService.HintSize="454.666666666667,743.333333333333" sap2010:WorkflowViewState.IdRef="Sequence_40">
+                                          <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke MakeREADMEInExcelWorkbook workflow" sap:VirtualizedContainerService.HintSize="454.666666666667,114" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_44" UnSafe="False" WorkflowFileName="Components\MakeREADMEInExcelWorkbook.xaml">
+                                            <ui:InvokeWorkflowFile.Arguments>
+                                              <InArgument x:TypeArguments="x:String" x:Key="in_OutputFolderPath">
+                                                <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="Config(&quot;OutputFolderPath&quot;).ToString" />
+                                              </InArgument>
+                                            </ui:InvokeWorkflowFile.Arguments>
+                                          </ui:InvokeWorkflowFile>
+                                          <Sequence DisplayName="Sequence - Write BankruptcyFilingDataDT/TransactionMarkedForReviewDT Column Name in Excel Workbook" sap:VirtualizedContainerService.HintSize="454.666666666667,1207.33333333333" sap2010:WorkflowViewState.IdRef="Sequence_40">
                                             <sap:WorkflowViewStateService.ViewState>
                                               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -727,19 +768,20 @@
                                                 <InArgument x:TypeArguments="x:Int32">0</InArgument>
                                               </Assign.Value>
                                             </Assign>
-                                            <ui:ForEach x:TypeArguments="sd:DataColumn" CurrentIndex="{x:Null}" DisplayName="For Each" sap:VirtualizedContainerService.HintSize="412.666666666667,447.333333333333" sap2010:WorkflowViewState.IdRef="ForEach`1_1" Values="[BankruptcyFilingDataDTColumnCollection]">
+                                            <ui:ForEach x:TypeArguments="sd:DataColumn" CurrentIndex="{x:Null}" DisplayName="For Each" sap:VirtualizedContainerService.HintSize="412.666666666667,602" sap2010:WorkflowViewState.IdRef="ForEach`1_1" Values="[BankruptcyFilingDataDTColumnCollection]">
                                               <ui:ForEach.Body>
                                                 <ActivityAction x:TypeArguments="sd:DataColumn">
                                                   <ActivityAction.Argument>
                                                     <DelegateInArgument x:TypeArguments="sd:DataColumn" Name="column" />
                                                   </ActivityAction.Argument>
-                                                  <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="376,308.666666666667" sap2010:WorkflowViewState.IdRef="Sequence_41">
+                                                  <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="376,463.333333333333" sap2010:WorkflowViewState.IdRef="Sequence_41">
                                                     <sap:WorkflowViewStateService.ViewState>
                                                       <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                                         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                                                       </scg:Dictionary>
                                                     </sap:WorkflowViewStateService.ViewState>
                                                     <ui:WriteCell Cell="[Chr(Asc(&quot;A&quot;) + ColumnIndex).ToString + &quot;1&quot;]" DisplayName="Write Cell - BankruptcyFilingDataDT Column Name" sap:VirtualizedContainerService.HintSize="334,114.666666666667" sap2010:WorkflowViewState.IdRef="WriteCell_1" SheetName="[Config(&quot;DataSheetName&quot;).ToString]" Text="[column.ColumnName]" WorkbookPath="[String.Format(&quot;{0}\BankruptcyFilingDataFromPDF.XLSX&quot;, Config(&quot;OutputFolderPath&quot;))]" />
+                                                    <ui:WriteCell Cell="[Chr(Asc(&quot;A&quot;) + ColumnIndex).ToString + &quot;1&quot;]" DisplayName="Write Cell - TransactionMarkedForReviewDT Column Name" sap:VirtualizedContainerService.HintSize="334,114.666666666667" sap2010:WorkflowViewState.IdRef="WriteCell_2" SheetName="[Config(&quot;TransactionMarkedForReviewSheetName&quot;).ToString]" Text="[column.ColumnName]" WorkbookPath="[String.Format(&quot;{0}\BankruptcyFilingDataFromPDF.XLSX&quot;, Config(&quot;OutputFolderPath&quot;))]" />
                                                     <Assign sap:VirtualizedContainerService.HintSize="334,62" sap2010:WorkflowViewState.IdRef="Assign_32">
                                                       <Assign.To>
                                                         <OutArgument x:TypeArguments="x:Int32">[ColumnIndex]</OutArgument>
@@ -752,6 +794,8 @@
                                                 </ActivityAction>
                                               </ui:ForEach.Body>
                                             </ui:ForEach>
+                                            <ui:WriteCell Cell="[Chr(Asc(&quot;A&quot;) + ColumnIndex).ToString + &quot;1&quot;]" DisplayName="Write Cell - TransactionMarkedForReviewDT Input Folder Path Column Name" sap:VirtualizedContainerService.HintSize="412.666666666667,114.666666666667" sap2010:WorkflowViewState.IdRef="WriteCell_3" SheetName="[Config(&quot;TransactionMarkedForReviewSheetName&quot;).ToString]" Text="[TransactionMarkedForReviewDT.Columns(ColumnIndex).ColumnName]" WorkbookPath="[String.Format(&quot;{0}\BankruptcyFilingDataFromPDF.XLSX&quot;, Config(&quot;OutputFolderPath&quot;))]" />
+                                            <ui:WriteCell Cell="[Chr(Asc(&quot;A&quot;) + ColumnIndex + 1).ToString + &quot;1&quot;]" DisplayName="Write Cell - TransactionMarkedForReviewDT Review Complete Column Name" sap:VirtualizedContainerService.HintSize="412.666666666667,114.666666666667" sap2010:WorkflowViewState.IdRef="WriteCell_4" SheetName="[Config(&quot;TransactionMarkedForReviewSheetName&quot;).ToString]" Text="[TransactionMarkedForReviewDT.Columns(ColumnIndex + 1).ColumnName]" WorkbookPath="[String.Format(&quot;{0}\BankruptcyFilingDataFromPDF.XLSX&quot;, Config(&quot;OutputFolderPath&quot;))]" />
                                           </Sequence>
                                         </Sequence>
                                       </If.Else>
@@ -846,9 +890,9 @@
                             </scg:Dictionary>
                           </sap:WorkflowViewStateService.ViewState>
                           <Transition.To>
-                            <State x:Name="__ReferenceID1" sap2010:Annotation.AnnotationText="End process and close all applications used." DisplayName="End Process" sap:VirtualizedContainerService.HintSize="144,124" sap2010:WorkflowViewState.IdRef="State_1" IsFinal="True">
+                            <State x:Name="__ReferenceID1" sap2010:Annotation.AnnotationText="End process and close all applications used." DisplayName="End Process" sap:VirtualizedContainerService.HintSize="694.666666666667,1144" sap2010:WorkflowViewState.IdRef="State_1" IsFinal="True">
                               <State.Entry>
-                                <TryCatch DisplayName="Try to close all aplications" sap:VirtualizedContainerService.HintSize="884.666666666667,752" sap2010:WorkflowViewState.IdRef="TryCatch_4">
+                                <TryCatch DisplayName="Try to close all aplications" sap:VirtualizedContainerService.HintSize="648,998" sap2010:WorkflowViewState.IdRef="TryCatch_4">
                                   <TryCatch.Try>
                                     <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke CloseAllApplications workflow" sap:VirtualizedContainerService.HintSize="334,114" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_21" UnSafe="False" WorkflowFileName="Framework\CloseAllApplications.xaml">
                                       <ui:InvokeWorkflowFile.Arguments>
@@ -857,7 +901,7 @@
                                     </ui:InvokeWorkflowFile>
                                   </TryCatch.Try>
                                   <TryCatch.Catches>
-                                    <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="850.666666666667,22" sap2010:WorkflowViewState.IdRef="Catch`1_5">
+                                    <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="614,22" sap2010:WorkflowViewState.IdRef="Catch`1_5">
                                       <sap:WorkflowViewStateService.ViewState>
                                         <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                           <x:Boolean x:Key="IsExpanded">False</x:Boolean>
@@ -868,7 +912,7 @@
                                         <ActivityAction.Argument>
                                           <DelegateInArgument x:TypeArguments="s:Exception" Name="Exception" />
                                         </ActivityAction.Argument>
-                                        <Sequence DisplayName="Failed to close applications, so kill processes" sap:VirtualizedContainerService.HintSize="376,340.666666666667" sap2010:WorkflowViewState.IdRef="Sequence_26">
+                                        <Sequence DisplayName="Failed to close applications, so kill processes" sap:VirtualizedContainerService.HintSize="376,176" sap2010:WorkflowViewState.IdRef="Sequence_26">
                                           <sap:WorkflowViewStateService.ViewState>
                                             <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                               <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -885,42 +929,41 @@
                                     </Catch>
                                   </TryCatch.Catches>
                                   <TryCatch.Finally>
-                                    <If Condition="[TransactionDataAllDone]" sap:VirtualizedContainerService.HintSize="846,514" sap2010:WorkflowViewState.IdRef="If_19">
-                                      <If.Then>
-                                        <Sequence DisplayName="Sequence - Save TransactionData and Clean Up" sap:VirtualizedContainerService.HintSize="421.333333333333,360" sap2010:WorkflowViewState.IdRef="Sequence_45">
-                                          <sap:WorkflowViewStateService.ViewState>
-                                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                                            </scg:Dictionary>
-                                          </sap:WorkflowViewStateService.ViewState>
-                                          <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke SaveTransactionDataInExcelWorkbook workflow" sap:VirtualizedContainerService.HintSize="379.333333333333,114" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_40" UnSafe="False" WorkflowFileName="Components\SaveTransactionDataInExcelWorkbook.xaml">
-                                            <ui:InvokeWorkflowFile.Arguments>
-                                              <InArgument x:TypeArguments="x:String" x:Key="in_OutputFolderPath">
-                                                <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="Config(&quot;OutputFolderPath&quot;).ToString" />
-                                              </InArgument>
-                                              <InArgument x:TypeArguments="sd:DataTable" x:Key="in_TransactionData">
-                                                <mva:VisualBasicValue x:TypeArguments="sd:DataTable" ExpressionText="TransactionData" />
-                                              </InArgument>
-                                              <InArgument x:TypeArguments="x:String" x:Key="in_TransactionDataSheetName">
-                                                <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="Config(&quot;TransactionDataSheetName&quot;).ToString" />
-                                              </InArgument>
-                                            </ui:InvokeWorkflowFile.Arguments>
-                                          </ui:InvokeWorkflowFile>
-                                          <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke FolderCleanup workflow" sap:VirtualizedContainerService.HintSize="379.333333333333,114" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_41" UnSafe="False" WorkflowFileName="Components\FolderCleanup.xaml">
-                                            <ui:InvokeWorkflowFile.Arguments>
-                                              <InArgument x:TypeArguments="x:String" x:Key="in_RootDirectoryName">[Config("RootDirectoryName").ToString]</InArgument>
-                                            </ui:InvokeWorkflowFile.Arguments>
-                                          </ui:InvokeWorkflowFile>
-                                        </Sequence>
-                                      </If.Then>
-                                      <If.Else>
-                                        <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke ClearSavepointInExcelWorkbook workflow" sap:VirtualizedContainerService.HintSize="378.666666666667,114" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_42" UnSafe="False" WorkflowFileName="Components\ClearSavepointInExcelWorkbook.xaml">
-                                          <ui:InvokeWorkflowFile.Arguments>
-                                            <InArgument x:TypeArguments="x:String" x:Key="in_OutputFolderPath">[Config("OutputFolderPath").ToString]</InArgument>
-                                          </ui:InvokeWorkflowFile.Arguments>
-                                        </ui:InvokeWorkflowFile>
-                                      </If.Else>
-                                    </If>
+                                    <Sequence DisplayName="Sequence - Clear Savepoint in Excel Workbook and Save TransactionData/Clean Up When All Done" sap:VirtualizedContainerService.HintSize="609.333333333333,760" sap2010:WorkflowViewState.IdRef="Sequence_51">
+                                      <sap:WorkflowViewStateService.ViewState>
+                                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                        </scg:Dictionary>
+                                      </sap:WorkflowViewStateService.ViewState>
+                                      <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke ClearSavepointInExcelWorkbook workflow" sap:VirtualizedContainerService.HintSize="567.333333333333,114" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_42" UnSafe="False" WorkflowFileName="Components\ClearSavepointInExcelWorkbook.xaml">
+                                        <ui:InvokeWorkflowFile.Arguments>
+                                          <InArgument x:TypeArguments="x:String" x:Key="in_OutputFolderPath">[Config("OutputFolderPath").ToString]</InArgument>
+                                        </ui:InvokeWorkflowFile.Arguments>
+                                      </ui:InvokeWorkflowFile>
+                                      <If Condition="[TransactionDataAllDone]" sap:VirtualizedContainerService.HintSize="567.333333333333,514" sap2010:WorkflowViewState.IdRef="If_19">
+                                        <If.Then>
+                                          <Sequence DisplayName="Sequence - Save TransactionData and Clean Up" sap:VirtualizedContainerService.HintSize="421.333333333333,360" sap2010:WorkflowViewState.IdRef="Sequence_45">
+                                            <sap:WorkflowViewStateService.ViewState>
+                                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                              </scg:Dictionary>
+                                            </sap:WorkflowViewStateService.ViewState>
+                                            <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke SaveTransactionDataInExcelWorkbook workflow" sap:VirtualizedContainerService.HintSize="379.333333333333,114" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_40" UnSafe="False" WorkflowFileName="Components\SaveTransactionDataInExcelWorkbook.xaml">
+                                              <ui:InvokeWorkflowFile.Arguments>
+                                                <InArgument x:TypeArguments="x:String" x:Key="in_OutputFolderPath">[Config("OutputFolderPath").ToString]</InArgument>
+                                                <InArgument x:TypeArguments="sd:DataTable" x:Key="in_TransactionData">[TransactionData]</InArgument>
+                                                <InArgument x:TypeArguments="x:String" x:Key="in_TransactionDataSheetName">[Config("TransactionDataSheetName").ToString]</InArgument>
+                                              </ui:InvokeWorkflowFile.Arguments>
+                                            </ui:InvokeWorkflowFile>
+                                            <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke FolderCleanup workflow" sap:VirtualizedContainerService.HintSize="379.333333333333,114" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_41" UnSafe="False" WorkflowFileName="Components\FolderCleanup.xaml">
+                                              <ui:InvokeWorkflowFile.Arguments>
+                                                <InArgument x:TypeArguments="x:String" x:Key="in_RootDirectoryName">[Config("RootDirectoryName").ToString]</InArgument>
+                                              </ui:InvokeWorkflowFile.Arguments>
+                                            </ui:InvokeWorkflowFile>
+                                          </Sequence>
+                                        </If.Then>
+                                      </If>
+                                    </Sequence>
                                   </TryCatch.Finally>
                                 </TryCatch>
                               </State.Entry>
@@ -1027,6 +1070,7 @@
       <Variable x:TypeArguments="sd:DataTable" sap2010:Annotation.AnnotationText="Used in case transactions are stored in a DataTable, for example, after being retrieved from a spreadsheet." Name="TransactionData" />
       <Variable x:TypeArguments="sd:DataTable" Name="BankruptcyFilingDataDT" />
       <Variable x:TypeArguments="x:Boolean" Name="TransactionDataAllDone" />
+      <Variable x:TypeArguments="sd:DataTable" Name="TransactionMarkedForReviewDT" />
     </StateMachine.Variables>
   </StateMachine>
 </Activity>
