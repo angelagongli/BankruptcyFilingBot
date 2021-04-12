@@ -1,2 +1,20 @@
-# BankruptcyFilingBot
-Automation of bankruptcy filing document processing/data extraction from bankruptcy filing PDF and the saving of the data from the bankruptcy filing PDF
+# Bankruptcy Filing Bot
+
+## How to Run the Automation
+1. Start the automation and set your Input/Output Folder Path when you are prompted by the UiPath robot to choose your folder path
+1. When you are newly beginning to process the bankruptcy filing PDFs of a subset of the CACB bankruptcy filing data, the UiPath robot will first generate all the PDF files you will be directly processing (the first page of the bankruptcy filing PDF documents containing the desired bankruptcy filing data point set) as well as the transaction data for the entire automation and will then begin pulling up the PDF documents for you to begin your processing. When you are returning to continue working on your bankruptcy filing PDF processing from earlier, you should be careful to specify the exact same Input/Output Folder Path so the UiPath robot can correctly read in the transaction data it has generated earlier and written to the BankruptcyFilingDataFromPDF Excel workbook output file to help you pick right back up from your Savepoint/stopping point in your processing of the CACB bankruptcy filing data
+1. Enter the specified data point from the bankruptcy filing PDF document that the UiPath robot will pull up for you in the following order:
+    1. Filer's ZIP Code from the Voluntary Petition
+    1. Filer's/Filer's Spouse's Total Combined Monthly Income from Schedule I
+    1. Filer's/Filer's Spouse's Total Assets from the Summary of Schedules
+    1. Filer's/Filer's Spouse's Total Liabilities from the Summary of Schedules
+    1. Bankruptcy Filing Attorney Fee from the Disclosure of Attorney Fee
+
+   The UiPath robot will try to make everything run as smoothly as possible for you in pulling up the correct file, scrolling to the correct part of the page and saving all of the bankruptcy filing's metadata for you!
+1. Let the UiPath robot know at the end of the transaction that you want to mark the transaction for review when you feel you want to check your work, and the UiPath robot will then return to step 3, pulling up the following bankruptcy filing's PDF document set in succession
+1. You can break/re-enter the automation and come back to finish processing the subset of the CACB bankruptcy filing data you have started in your own time. At the very end of the automation, the UiPath robot will clean up all the auxiliary PDF files it has generated for your bankruptcy filing PDF processing and save the completed BankruptcyFilingDataFromPDF Excel workbook output file in your Output Folder Path
+
+## Detailed Instruction on Running the Automation
+* You will be prompted to set the Input/Output Folder Path at the beginning of the automation, and in the event the Output Folder Path is always the same (i.e. you want to keep all your data pulled from the subsets within your CACB bankruptcy filing data set all in one file in a fixed folder path), you will want to set your Output Folder Path just once and you can write the Output Folder Path directly into Config.XLSX yourself
+* You should run the automation with your Output Folder Path set to a folder strictly local to your machine, e.g. not connected to your OneDrive, since the automation will be constantly opening/saving to the BankruptcyFilingDataFromPDF Excel workbook output file and you will want to protect yourself against synchronization issues that would interrupt the automation/result in incomplete saving of your work
+* Your use of the Review Requested sheet within the BankruptcyFilingDataFromPDF Excel workbook output file (RR_{InputFolderName}) is entirely up to you and it is mostly just meant to help you make note of/keep track of the transaction you want to review when you are still in the middle of running the automation. Depending on how thoroughly you want to make use of the Review Requested sheet, I can implement Update from Reviewed Data functionality where you save your review of the marked transaction directly in the Review Requested sheet itself and the UiPath robot then reads your reviewed data into the automation and updates the main output data sheet to be populated with your reviewed data
