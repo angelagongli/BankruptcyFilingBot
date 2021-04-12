@@ -7,5 +7,7 @@ Sub ClearSavepointData()
 End Sub
 
 Sub ClearSavepointDataAll()
+    Application.DisplayAlerts = False
     Sheets("SavepointData").Delete
+    Application.DisplayAlerts = True
 End Sub
