@@ -6,7 +6,7 @@
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1288,1370</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1288,1415.33333333333</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>PullVoluntaryPetitionData_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="30">
@@ -74,7 +74,7 @@
       <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="PullVoluntaryPetitionData_Attended" sap:VirtualizedContainerService.HintSize="898,1305.33333333333" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence sap2010:Annotation.AnnotationText="In the PullVoluntaryPetitionData_Attended.xaml workflow, we first check to make sure we are finding the Voluntary Petition First Page PDF in the folder path where we expect it to be, and we then continue on to open up the Voluntary Petition First Page PDF and pull the Filer's ZIP Code." DisplayName="PullVoluntaryPetitionData_Attended" sap:VirtualizedContainerService.HintSize="898,1350.66666666667" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:Boolean" Name="VoluntaryPetitionFirstPagePDFFileExists" />
     </Sequence.Variables>
@@ -82,6 +82,7 @@
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
         <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
     <ui:PathExists DisplayName="Path Exists - Voluntary Petition First Page PDF" Exists="[VoluntaryPetitionFirstPagePDFFileExists]" sap:VirtualizedContainerService.HintSize="856,90.6666666666667" sap2010:WorkflowViewState.IdRef="PathExists_1" Path="[in_VoluntaryPetitionFirstPagePDFFilePath]" PathType="File" />
