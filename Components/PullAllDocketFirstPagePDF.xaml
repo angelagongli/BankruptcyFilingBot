@@ -10,7 +10,7 @@
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1288.66666666667,3814</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1288,3892.66666666667</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>PullDocket1FirstPagePDF_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="29">
@@ -73,7 +73,6 @@
       <AssemblyReference>UiPath.Excel</AssemblyReference>
       <AssemblyReference>System.Memory</AssemblyReference>
       <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
-      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
   <sap:WorkflowViewStateService.ViewState>
@@ -81,7 +80,7 @@
       <x:Boolean x:Key="ShouldExpandAll">True</x:Boolean>
     </scg:Dictionary>
   </sap:WorkflowViewStateService.ViewState>
-  <Sequence DisplayName="PullAllDocketFirstPagePDF" sap:VirtualizedContainerService.HintSize="957.333333333333,3749.33333333333" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence sap2010:Annotation.AnnotationText="In the PullAllDocketFirstPagePDF.xaml workflow, we will first build our TransactionData Data Table so we can save all our transaction data in a well-defined way, and we will then traverse the entire Input Folder Path you have set in the SetInputOutputFolderPath.xaml workflow to save the metadata of all its bankruptcy filings, the individual bankruptcy filing being our definition of the transaction, and traverse the docket set of the individual bankruptcy filing to check for the presence of the bankruptcy filing document set we want and save the first page PDF before adding the bankruptcy filing to our transaction data." DisplayName="PullAllDocketFirstPagePDF" sap:VirtualizedContainerService.HintSize="957.333333333333,3828" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="s:String[]" Name="BankruptcyFilingArr" />
     </Sequence.Variables>
@@ -89,6 +88,7 @@
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
         <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
     <ui:BuildDataTable DataTable="[out_TransactionData]" DisplayName="Build Data Table - TransactionData" sap:VirtualizedContainerService.HintSize="915.333333333333,58.6666666666667" sap2010:WorkflowViewState.IdRef="BuildDataTable_1" TableInfo="&lt;NewDataSet&gt;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xA;      &lt;xs:complexType&gt;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xA;            &lt;xs:complexType&gt;&#xA;              &lt;xs:sequence&gt;&#xA;                &lt;xs:element name=&quot;Debtor_x0020_Name&quot; msdata:Caption=&quot;&quot;&gt;&#xA;                  &lt;xs:simpleType&gt;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xA;                      &lt;xs:maxLength value=&quot;100&quot; /&gt;&#xA;                    &lt;/xs:restriction&gt;&#xA;                  &lt;/xs:simpleType&gt;&#xA;                &lt;/xs:element&gt;&#xA;                &lt;xs:element name=&quot;Petition_x0020_Number&quot; msdata:Caption=&quot;&quot;&gt;&#xA;                  &lt;xs:simpleType&gt;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xA;                      &lt;xs:maxLength value=&quot;100&quot; /&gt;&#xA;                    &lt;/xs:restriction&gt;&#xA;                  &lt;/xs:simpleType&gt;&#xA;                &lt;/xs:element&gt;&#xA;                &lt;xs:element name=&quot;Voluntary_x0020_Petition_x0020_First_x0020_Page_x0020_PDF_x0020_File_x0020_Path&quot; msdata:Caption=&quot;&quot; type=&quot;xs:string&quot; /&gt;&#xA;                &lt;xs:element name=&quot;Schedule_x0020_I_x0020_First_x0020_Page_x0020_PDF_x0020_File_x0020_Path&quot; msdata:Caption=&quot;&quot; type=&quot;xs:string&quot; /&gt;&#xA;                &lt;xs:element name=&quot;Summary_x0020_of_x0020_Schedules_x0020_First_x0020_Page_x0020_PDF_x0020_File_x0020_Path&quot; msdata:Caption=&quot;&quot; type=&quot;xs:string&quot; /&gt;&#xA;                &lt;xs:element name=&quot;Disclosure_x0020_of_x0020_Attorney_x0020_Fees_x0020_First_x0020_Page_x0020_PDF_x0020_File_x0020_Path&quot; msdata:Caption=&quot;&quot; type=&quot;xs:string&quot; /&gt;&#xA;                &lt;xs:element name=&quot;Status&quot; msdata:Caption=&quot;&quot; minOccurs=&quot;0&quot;&gt;&#xA;                  &lt;xs:simpleType&gt;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xA;                      &lt;xs:maxLength value=&quot;100&quot; /&gt;&#xA;                    &lt;/xs:restriction&gt;&#xA;                  &lt;/xs:simpleType&gt;&#xA;                &lt;/xs:element&gt;&#xA;              &lt;/xs:sequence&gt;&#xA;            &lt;/xs:complexType&gt;&#xA;          &lt;/xs:element&gt;&#xA;        &lt;/xs:choice&gt;&#xA;      &lt;/xs:complexType&gt;&#xA;    &lt;/xs:element&gt;&#xA;  &lt;/xs:schema&gt;&#xA;&lt;/NewDataSet&gt;" />
