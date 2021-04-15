@@ -5,7 +5,7 @@
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1288,1429.33333333333</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1288,1574.66666666667</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>SetInputOutputFolderPath_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="42">
@@ -62,10 +62,9 @@
       <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
       <AssemblyReference>System.ServiceModel</AssemblyReference>
       <AssemblyReference>System.Collections.Immutable</AssemblyReference>
-      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="SetInputOutputFolderPath" sap:VirtualizedContainerService.HintSize="418,1364.66666666667" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence sap2010:Annotation.AnnotationText="In the SetInputOutputFolderPath.xaml workflow, we set our Input Folder Path/Output Folder Path where we will be pulling our bankruptcy filing data from the PDF documents of the specified subset of the CACB bankruptcy filing data and then saving our pulled data in the BankruptcyFilingDataFromPDF Excel workbook output file. Based on the chosen Input Folder Name, we compute the Sheet Name of our BankruptcyFilingDataFromPDF Excel workbook and save the constant in our Config dictionary." DisplayName="SetInputOutputFolderPath" sap:VirtualizedContainerService.HintSize="418,1510" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:String" Name="InputFolderPath" />
       <Variable x:TypeArguments="x:String" Name="OutputFolderPath" />
@@ -73,6 +72,7 @@
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
     <Sequence DisplayName="Sequence - Set Input Folder Path" sap:VirtualizedContainerService.HintSize="376,417.333333333333" sap2010:WorkflowViewState.IdRef="Sequence_2">
