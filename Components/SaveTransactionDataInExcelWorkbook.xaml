@@ -13,7 +13,7 @@
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1388,827.333333333333</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1288,827.333333333333</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>SaveTransactionDataInExcelWorkbook_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
@@ -78,10 +78,11 @@
       <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="SaveTransactionDataInExcelWorkbook" sap:VirtualizedContainerService.HintSize="756,613.333333333333" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence sap2010:Annotation.AnnotationText="In the SaveTransactionDataInExcelWorkbook.xaml workflow, we are saving our transaction data at the very end of our automation so we will first clear the TD_{InputFolderName} Sheet in our BankruptcyFilingDataFromPDF Excel Workbook output file of our present transaction data, filter our TransactionData Data Table by completion to keep only all the transaction throwing Exception, and then write our resulting transaction data in the TD_{InputFolderName} Sheet of our BankruptcyFilingDataFromPDF Excel Workbook output file." DisplayName="SaveTransactionDataInExcelWorkbook" sap:VirtualizedContainerService.HintSize="756,692" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
     <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke ClearTransactionDataInExcelWorkbook workflow" sap:VirtualizedContainerService.HintSize="714,114" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="Components\ClearTransactionDataInExcelWorkbook.xaml">
