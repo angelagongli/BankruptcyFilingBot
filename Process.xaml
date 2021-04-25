@@ -10,7 +10,7 @@
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1288,4558.66666666667</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1262,4690.66666666667</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>ProcessTransaction_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="32">
@@ -81,7 +81,7 @@
       <AssemblyReference>UiPath.Excel.Activities</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="In the Process.xaml workflow, we will be pulling the desired bankruptcy filing data point set from the present transaction's bankruptcy filing PDF document set. Please enter the specified data point in the Input Dialog box when the UiPath robot pulls up the document for you in the following order:&#xA;  1. Filer's ZIP Code from the Voluntary Petition&#xA;  2. Filer's/Filer's Spouse's Total Combined Monthly Income from Schedule I&#xA;  3. Filer's/Filer's Spouse's Total Assets from the Summary of Schedules&#xA;  4. Filer's/Filer's Spouse's Total Liabilities from the Summary of Schedules&#xA;  5. Bankruptcy Filing Attorney Fee from the Disclosure of Attorney Fee&#xA;When you are returning to your automation from earlier and your work is saved in the SavepointData sheet of the BankruptcyFilingDataFromPDF Excel workbook output file following breaking the automation mid-transaction, your in-progress transaction's pulled data will be populated all the way up to your savepoint and the UiPath robot will then pick up right where you are and open up the correct bankruptcy filing PDF document for you to continue in your processing of the transaction. At the end of the transaction, you will be asked to mark your transaction for review when you feel you want to check your work, and the UiPath robot will save everything in your present transaction for you and clear everything in preparation for the following transaction in succession." DisplayName="Process" sap:VirtualizedContainerService.HintSize="813.333333333333,4494" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence sap2010:Annotation.AnnotationText="In the Process.xaml workflow, we will be pulling the desired bankruptcy filing data point set from the present transaction's bankruptcy filing PDF document set. Please enter the specified data point in the Input Dialog box when the UiPath robot pulls up the document for you in the following order:&#xA;  1. Filer's ZIP Code from the Voluntary Petition&#xA;  2. Filer's/Filer's Spouse's Total Combined Monthly Income from Schedule I&#xA;  3. Filer's/Filer's Spouse's Total Assets from the Summary of Schedules&#xA;  4. Filer's/Filer's Spouse's Total Liabilities from the Summary of Schedules&#xA;  5. Bankruptcy Filing Attorney Fee from the Disclosure of Attorney Fee&#xA;When you are returning to your automation from earlier and your work is saved in the SavepointData sheet of the BankruptcyFilingDataFromPDF Excel workbook output file following breaking the automation mid-transaction, your in-progress transaction's pulled data will be populated all the way up to your savepoint and the UiPath robot will then pick up right where you are and open up the correct bankruptcy filing PDF document for you to continue in your processing of the transaction. At the end of the transaction, you will be asked to mark your transaction for review when you feel you want to check your work, and the UiPath robot will save everything in your present transaction for you and clear everything in preparation for the following transaction in succession." DisplayName="Process" sap:VirtualizedContainerService.HintSize="813.333333333333,4586" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:String" Name="DebtorZIPCode" />
       <Variable x:TypeArguments="x:String" Name="DebtorSpouseTotalCombinedMonthlyIncome" />
@@ -97,37 +97,44 @@
         <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <Assign sap:VirtualizedContainerService.HintSize="771.333333333333,62" sap2010:WorkflowViewState.IdRef="Assign_2">
-      <Assign.To>
-        <OutArgument x:TypeArguments="x:Int32">[ColumnIndex]</OutArgument>
-      </Assign.To>
-      <Assign.Value>
-        <InArgument x:TypeArguments="x:Int32">0</InArgument>
-      </Assign.Value>
-    </Assign>
-    <ui:InterruptibleDoWhile DisplayName="Do While" sap:VirtualizedContainerService.HintSize="771.333333333333,478" sap2010:WorkflowViewState.IdRef="InterruptibleDoWhile_1">
-      <ui:InterruptibleDoWhile.Body>
-        <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="376,308.666666666667" sap2010:WorkflowViewState.IdRef="Sequence_3">
-          <sap:WorkflowViewStateService.ViewState>
-            <scg:Dictionary x:TypeArguments="x:String, x:Object">
-              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-            </scg:Dictionary>
-          </sap:WorkflowViewStateService.ViewState>
-          <ui:WriteCell Cell="[Chr(Asc(&quot;A&quot;) + ColumnIndex).ToString + &quot;1&quot;]" DisplayName="Write Cell - Set Initial State in SavepointData Sheet" sap:VirtualizedContainerService.HintSize="334,114.666666666667" sap2010:WorkflowViewState.IdRef="WriteCell_6" SheetName="SavepointData" Text="*" WorkbookPath="[String.Format(&quot;{0}\BankruptcyFilingDataFromPDF.XLSX&quot;, in_Config(&quot;OutputFolderPath&quot;))]" />
-          <Assign sap:VirtualizedContainerService.HintSize="334,62" sap2010:WorkflowViewState.IdRef="Assign_3">
-            <Assign.To>
-              <OutArgument x:TypeArguments="x:Int32">[ColumnIndex]</OutArgument>
-            </Assign.To>
-            <Assign.Value>
-              <InArgument x:TypeArguments="x:Int32">[ColumnIndex + 1]</InArgument>
-            </Assign.Value>
-          </Assign>
-        </Sequence>
-      </ui:InterruptibleDoWhile.Body>
-      <ui:InterruptibleDoWhile.Condition>
-        <mva:VisualBasicValue x:TypeArguments="x:Boolean" ExpressionText="ColumnIndex &lt; 5" sap2010:WorkflowViewState.IdRef="VisualBasicValue`1_1" />
-      </ui:InterruptibleDoWhile.Condition>
-    </ui:InterruptibleDoWhile>
+    <Sequence DisplayName="Sequence - Define Savepoint in Transaction to Roll Back to When Coming Back to Pulling Data Following Suddenly Breaking the Automation" sap:VirtualizedContainerService.HintSize="771.333333333333,672" sap2010:WorkflowViewState.IdRef="Sequence_11">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <Assign sap:VirtualizedContainerService.HintSize="412.666666666667,62" sap2010:WorkflowViewState.IdRef="Assign_2">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:Int32">[ColumnIndex]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:Int32">0</InArgument>
+        </Assign.Value>
+      </Assign>
+      <ui:InterruptibleDoWhile DisplayName="Do While" sap:VirtualizedContainerService.HintSize="412.666666666667,478" sap2010:WorkflowViewState.IdRef="InterruptibleDoWhile_1">
+        <ui:InterruptibleDoWhile.Body>
+          <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="376,308.666666666667" sap2010:WorkflowViewState.IdRef="Sequence_3">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <ui:WriteCell Cell="[Chr(Asc(&quot;A&quot;) + ColumnIndex).ToString + &quot;1&quot;]" DisplayName="Write Cell - Set Initial State in SavepointData Sheet" sap:VirtualizedContainerService.HintSize="334,114.666666666667" sap2010:WorkflowViewState.IdRef="WriteCell_6" SheetName="SavepointData" Text="*" WorkbookPath="[String.Format(&quot;{0}\BankruptcyFilingDataFromPDF.XLSX&quot;, in_Config(&quot;OutputFolderPath&quot;))]" />
+            <Assign sap:VirtualizedContainerService.HintSize="334,62" sap2010:WorkflowViewState.IdRef="Assign_3">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:Int32">[ColumnIndex]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:Int32">[ColumnIndex + 1]</InArgument>
+              </Assign.Value>
+            </Assign>
+          </Sequence>
+        </ui:InterruptibleDoWhile.Body>
+        <ui:InterruptibleDoWhile.Condition>
+          <mva:VisualBasicValue x:TypeArguments="x:Boolean" ExpressionText="ColumnIndex &lt; 5" sap2010:WorkflowViewState.IdRef="VisualBasicValue`1_1" />
+        </ui:InterruptibleDoWhile.Condition>
+      </ui:InterruptibleDoWhile>
+    </Sequence>
     <If Condition="[in_PickUpFromSavepointStep &lt; 1]" sap:VirtualizedContainerService.HintSize="771.333333333333,514.666666666667" sap2010:WorkflowViewState.IdRef="If_1">
       <If.Then>
         <Sequence DisplayName="Sequence - Pull Debtor's ZIP Code from Voluntary Petition" sap:VirtualizedContainerService.HintSize="421.333333333333,360.666666666667" sap2010:WorkflowViewState.IdRef="Sequence_4">
