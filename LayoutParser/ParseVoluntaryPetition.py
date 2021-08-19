@@ -22,7 +22,29 @@ VoluntaryPetitionLayoutTextImage.save("ParsedPDFImage\\VoluntaryPetitionLayoutTe
 VoluntaryPetitionLayoutBoxImage = lp.draw_box(VoluntaryPetitionImage, layout, box_width=3)
 VoluntaryPetitionLayoutBoxImage.save("ParsedPDFImage\\VoluntaryPetitionLayoutBoxImage.png")
 
-debtor_ZIP_code = layout.filter_by(lp.Rectangle(x_1=100, y_1=510, x_2=750, y_2=600))
+# Define the Box Containing the Filer's Address:
+address_box_x_1 = 0
+address_box_x_2 = 0
+address_box_y_1 = 0
+address_box_y_2 = 0
+for box in layout:
+    if "Street" in box.text and address_box_x_1 == 0:
+        address_box_x_1 = box.block.x_1
+        address_box_y_1 = box.block.y_1
+    elif "Zip" in box.text and address_box_x_2 == 0:
+        address_box_x_2 = box.block.x_2
+        address_box_y_1 = min(address_box_y_1, box.block.y_1)
+    elif "County" in box.text:
+        # Stop at the top of the first County of Residence box
+        address_box_y_2 = box.block.y_1
+        break
+    # TODO: Handle the special situation when the person is
+    # Named Zip, or the even more special situation when the
+    # Person is named Street/County
+
+debtor_ZIP_code = layout.filter_by(
+    lp.Rectangle(x_1=address_box_x_1, y_1=address_box_y_1,
+                x_2=address_box_x_2, y_2=address_box_y_2))
 DebtorZIPCodeTextImage = lp.draw_text(VoluntaryPetitionImage, debtor_ZIP_code, font_size=16,
     with_box_on_text=True, text_box_width=1)
 DebtorZIPCodeTextImage.save("ParsedPDFImage\\DebtorZIPCodeTextImage.png")
