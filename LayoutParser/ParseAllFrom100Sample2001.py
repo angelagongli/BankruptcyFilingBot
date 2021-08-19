@@ -31,6 +31,54 @@ for folder in os.listdir(os.path.join(root, '100 sample\\2001')):
                 VoluntaryPetitionLayoutTextImage.save(
                     os.path.join(root, 'LayoutParserOutput', folder,
                     'VoluntaryPetitionLayoutTextImage.png'))
+                # Define the Box Containing the Filer's Address:
+                address_box_x_1 = 0
+                address_box_x_2 = 0
+                address_box_y_1 = 0
+                address_box_y_2 = 0
+                met_Street_yet = False
+                met_ZIP_yet = False
+                for box in layout:
+                    if "STREET" in box.text.upper():
+                        met_Street_yet = True
+                    elif ("ADDRESS" in box.text.upper() and
+                        met_Street_yet and
+                        address_box_x_1 == 0):
+                        # Under the belief that the name of the Filer's
+                        # City + ", CA" is longer than the word Street
+                        address_box_x_1 = box.block.x_1
+                        address_box_y_1 = box.block.y_1
+                    elif "ZIP" in box.text.upper():
+                        met_ZIP_yet = True
+                    elif ("CODE" in box.text.upper() and
+                        met_ZIP_yet and
+                        address_box_x_2 == 0):
+                        address_box_x_2 = box.block.x_2
+                        address_box_y_1 = min(address_box_y_1, box.block.y_1)
+                    elif "COUNTY" in box.text.upper():
+                        # Stop at the top of the first County of Residence box
+                        address_box_y_2 = box.block.y_1
+                        break
+                    # Much better chance that the person is not named
+                    # Street Address/ZIP Code though it is still possible
+                debtor_ZIP_code = layout.filter_by(
+                    lp.Rectangle(x_1=address_box_x_1, y_1=address_box_y_1,
+                                x_2=address_box_x_2, y_2=address_box_y_2))
+                DebtorZIPCodeTextImage = lp.draw_text(VoluntaryPetitionImage,
+                    debtor_ZIP_code, font_size=16,
+                    with_box_on_text=True, text_box_width=1)
+                DebtorZIPCodeTextImage.save(
+                    os.path.join(root, 'LayoutParserOutput', folder,
+                    'DebtorZIPCodeTextImage.png'))
+                DataPointRegex = re.compile("[\d\s]+")
+                i = len(debtor_ZIP_code) - 1
+                DataPointRegexMatch = DataPointRegex.match(debtor_ZIP_code[i].text)
+                DebtorZIPCodeString = ""
+                while DataPointRegexMatch is not None:
+                    DebtorZIPCodeString = debtor_ZIP_code[i].text.strip() + DebtorZIPCodeString
+                    i -= 1
+                    DataPointRegexMatch = DataPointRegex.match(debtor_ZIP_code[i].text)
+                DataPointDictionary["Debtor ZIP Code"] = DebtorZIPCodeString
             elif "Summary of schedules" in file:
                 SummaryOfSchedulesPageImageArr = convert_from_path(
                     os.path.join(fullBankruptcyFilingFolderPath, file),
@@ -45,14 +93,14 @@ for folder in os.listdir(os.path.join(root, '100 sample\\2001')):
                     'SummaryOfSchedulesLayoutTextImage.png'))
                 DataPointRegex = re.compile("[\d\.,]+")
                 for i in range(0, len(layout) - 1):
-                    if layout[i].text == "Total" and layout[i + 1].text == "Assets":
+                    if layout[i].text.upper() == "TOTAL" and layout[i + 1].text.upper() == "ASSETS":
                         j = i + 2
                         DataPointRegexMatch = DataPointRegex.match(layout[j].text)
                         while DataPointRegexMatch is None:
                             j += 1
                             DataPointRegexMatch = DataPointRegex.match(layout[j].text)
                         DataPointDictionary["Total Assets"] = layout[j].text
-                    if layout[i].text == "Total" and layout[i + 1].text == "Liabilities":
+                    if layout[i].text.upper() == "TOTAL" and layout[i + 1].text.upper() == "LIABILITIES":
                         j = i + 2
                         DataPointRegexMatch = DataPointRegex.match(layout[j].text)
                         while DataPointRegexMatch is None:
@@ -73,10 +121,10 @@ for folder in os.listdir(os.path.join(root, '100 sample\\2001')):
                     'ScheduleILayoutTextImage.png'))
                 DataPointRegex = re.compile("[\d\.,\$]+")
                 for i in range(0, len(layout) - 1):
-                    if (layout[i].text == "TOTAL" and
-                        layout[i + 1].text == "COMBINED" and
-                        layout[i + 2].text == "MONTHLY" and
-                        layout[i + 3].text == "INCOME"):
+                    if (layout[i].text.upper() == "TOTAL" and
+                        layout[i + 1].text.upper() == "COMBINED" and
+                        layout[i + 2].text.upper() == "MONTHLY" and
+                        layout[i + 3].text.upper() == "INCOME"):
                         j = i + 4
                         DataPointRegexMatch = DataPointRegex.match(layout[j].text)
                         while DataPointRegexMatch is None:
@@ -103,9 +151,9 @@ for folder in os.listdir(os.path.join(root, '100 sample\\2001')):
                     'DisclosureOfAttorneyFeesLayoutTextImage.png'))
                 DataPointRegex = re.compile("[\d\.,]+")
                 for i in range(0, len(layout) - 1):
-                    if ((layout[i].text == "For" or layout[i].text == "for") and
-                        layout[i + 1].text == "legal" and
-                        layout[i + 2].text == "services"):
+                    if (layout[i].text.upper() == "FOR" and
+                        layout[i + 1].text.upper() == "LEGAL" and
+                        layout[i + 2].text.upper() == "SERVICES"):
                         j = i + 3
                         DataPointRegexMatch = DataPointRegex.match(layout[j].text)
                         while DataPointRegexMatch is None:
