@@ -30,23 +30,23 @@ address_box_y_2 = 0
 met_Street_yet = False
 met_ZIP_yet = False
 for box in layout:
-    if "Street" in box.text:
+    if "STREET" in box.text.upper():
         met_Street_yet = True
-    elif ("Address" in box.text and
+    elif ("ADDRESS" in box.text.upper() and
         met_Street_yet and
         address_box_x_1 == 0):
         # Under the belief that the name of the Filer's
         # City + ", CA" is longer than the word Street
         address_box_x_1 = box.block.x_1
         address_box_y_1 = box.block.y_1
-    elif "Zip" in box.text:
+    elif "ZIP" in box.text.upper():
         met_ZIP_yet = True
-    elif ("Code" in box.text and
+    elif ("CODE" in box.text.upper() and
         met_ZIP_yet and
         address_box_x_2 == 0):
         address_box_x_2 = box.block.x_2
         address_box_y_1 = min(address_box_y_1, box.block.y_1)
-    elif "County" in box.text:
+    elif "COUNTY" in box.text.upper():
         # Stop at the top of the first County of Residence box
         address_box_y_2 = box.block.y_1
         break
