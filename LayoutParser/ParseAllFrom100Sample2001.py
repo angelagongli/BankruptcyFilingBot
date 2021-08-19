@@ -36,28 +36,22 @@ for folder in os.listdir(os.path.join(root, '100 sample\\2001')):
                 address_box_x_2 = 0
                 address_box_y_1 = 0
                 address_box_y_2 = 0
-                met_Street_yet = False
-                met_ZIP_yet = False
-                for box in layout:
-                    if "STREET" in box.text.upper():
-                        met_Street_yet = True
-                    elif ("ADDRESS" in box.text.upper() and
-                        met_Street_yet and
+                for i in range(0, len(layout) - 1):
+                    if layout[i].text.upper() == "FILED":
+                        DataPointDictionary["Filed Date"] = layout[i + 1].text
+                    elif ("STREET" in layout[i].text.upper() and
+                        "ADDRESS" in layout[i + 1].text.upper() and
                         address_box_x_1 == 0):
-                        # Under the belief that the name of the Filer's
-                        # City + ", CA" is longer than the word Street
-                        address_box_x_1 = box.block.x_1
-                        address_box_y_1 = box.block.y_1
-                    elif "ZIP" in box.text.upper():
-                        met_ZIP_yet = True
-                    elif ("CODE" in box.text.upper() and
-                        met_ZIP_yet and
+                        address_box_x_1 = layout[i].block.x_1
+                        address_box_y_1 = layout[i].block.y_1
+                    elif ("ZIP" in layout[i].text.upper() and
+                        "CODE" in layout[i + 1].text.upper() and
                         address_box_x_2 == 0):
-                        address_box_x_2 = box.block.x_2
-                        address_box_y_1 = min(address_box_y_1, box.block.y_1)
-                    elif "COUNTY" in box.text.upper():
+                        address_box_x_2 = layout[i + 1].block.x_2
+                        address_box_y_1 = min(address_box_y_1, layout[i + 1].block.y_1)
+                    elif "COUNTY" in layout[i].text.upper():
                         # Stop at the top of the first County of Residence box
-                        address_box_y_2 = box.block.y_1
+                        address_box_y_2 = layout[i].block.y_1
                         break
                     # Much better chance that the person is not named
                     # Street Address/ZIP Code though it is still possible
