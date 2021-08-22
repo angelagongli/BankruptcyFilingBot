@@ -3,9 +3,22 @@ import pytesseract
 from pdf2image import convert_from_path
 import re
 import os
+import mysql.connector
 
 pytesseract.pytesseract.tesseract_cmd = r'C:\\Program Files\\Tesseract-OCR\\tesseract'
 ocr_agent = lp.TesseractAgent(languages='eng')
+
+cnx = mysql.connector.connect(user='root',
+                              password=None,
+                              host='127.0.0.1',
+                              database='BankruptcyFiling_DB')
+cursor = cnx.cursor()
+
+insert_raw_bankruptcy_filing = ("INSERT INTO CACB_100Sample2001_Raw "
+    "(name, filedDate, ZIPCode, totalAssets, "
+    "totalLiabilities, attoneyFee, totalCombinedMonthlyIncome) "
+    "VALUES (%(name)s, %(filedDate)s, %(ZIPCode)s, %(totalAssets)s, "
+    "%(totalLiabilities)s, %(attoneyFee)s, %(totalCombinedMonthlyIncome)s)")
 
 root = 'C:\\Users\\angel\\Documents\\Automation\\CACB'
 if not os.path.isdir(os.path.join(root, 'LayoutParserOutput')):
@@ -17,7 +30,9 @@ for folder in os.listdir(os.path.join(root, '100 sample\\2001')):
     if not os.path.isdir(os.path.join(root, 'LayoutParserOutput', folder)):
         os.mkdir(os.path.join(root, 'LayoutParserOutput', folder))
     if os.path.isdir(fullBankruptcyFilingFolderPath):
-        DataPointDictionary = {}
+        RawBankruptcyFiling = {
+            'name': folder.split(" =")[0]
+        }
         for file in os.listdir(fullBankruptcyFilingFolderPath):
             if "Voluntary petition" in file:
                 VoluntaryPetitionPageImageArr = convert_from_path(
@@ -38,7 +53,7 @@ for folder in os.listdir(os.path.join(root, '100 sample\\2001')):
                 address_box_y_2 = 0
                 for i in range(0, len(layout) - 1):
                     if layout[i].text.upper() == "FILED":
-                        DataPointDictionary["Filed Date"] = layout[i + 1].text
+                        RawBankruptcyFiling["filedDate"] = layout[i + 1].text
                     elif ("STREET" in layout[i].text.upper() and
                         "ADDRESS" in layout[i + 1].text.upper() and
                         address_box_x_1 == 0):
@@ -72,7 +87,7 @@ for folder in os.listdir(os.path.join(root, '100 sample\\2001')):
                     DebtorZIPCodeString = debtor_ZIP_code[i].text.strip() + DebtorZIPCodeString
                     i -= 1
                     DataPointRegexMatch = DataPointRegex.match(debtor_ZIP_code[i].text)
-                DataPointDictionary["Debtor ZIP Code"] = DebtorZIPCodeString
+                RawBankruptcyFiling["ZIPCode"] = DebtorZIPCodeString
             elif "Summary of schedules" in file:
                 SummaryOfSchedulesPageImageArr = convert_from_path(
                     os.path.join(fullBankruptcyFilingFolderPath, file),
@@ -93,14 +108,14 @@ for folder in os.listdir(os.path.join(root, '100 sample\\2001')):
                         while DataPointRegexMatch is None:
                             j += 1
                             DataPointRegexMatch = DataPointRegex.match(layout[j].text)
-                        DataPointDictionary["Total Assets"] = layout[j].text
+                        RawBankruptcyFiling["totalAssets"] = layout[j].text
                     if layout[i].text.upper() == "TOTAL" and layout[i + 1].text.upper() == "LIABILITIES":
                         j = i + 2
                         DataPointRegexMatch = DataPointRegex.match(layout[j].text)
                         while DataPointRegexMatch is None:
                             j += 1
                             DataPointRegexMatch = DataPointRegex.match(layout[j].text)
-                        DataPointDictionary["Total Liabilities"] = layout[j].text
+                        RawBankruptcyFiling["totalLiabilities"] = layout[j].text
             elif "Schedule I" in file:
                 ScheduleIPageImageArr = convert_from_path(
                     os.path.join(fullBankruptcyFilingFolderPath, file),
@@ -129,7 +144,7 @@ for folder in os.listdir(os.path.join(root, '100 sample\\2001')):
                             TotalCombinedMonthlyIncomeString += layout[j].text
                             j += 1
                             DataPointRegexMatch = DataPointRegex.match(layout[j].text)
-                        DataPointDictionary["Total Combined Monthly Income"] = TotalCombinedMonthlyIncomeString
+                        RawBankruptcyFiling["totalCombinedMonthlyIncome"] = TotalCombinedMonthlyIncomeString
                         break
             elif "Disclosure of attorney fee" in file:
                 DisclosureOfAttorneyFeesPageImageArr = convert_from_path(
@@ -153,6 +168,23 @@ for folder in os.listdir(os.path.join(root, '100 sample\\2001')):
                         while DataPointRegexMatch is None:
                             j += 1
                             DataPointRegexMatch = DataPointRegex.match(layout[j].text)
-                        DataPointDictionary["Attorney Fee"] = layout[j].text
+                        RawBankruptcyFiling["attoneyFee"] = layout[j].text
                         break
-        print(DataPointDictionary)
+        print(RawBankruptcyFiling)
+        if ('name' not in RawBankruptcyFiling or
+            'filedDate' not in RawBankruptcyFiling or
+            'ZIPCode' not in RawBankruptcyFiling):
+            continue
+        if 'totalAssets' not in RawBankruptcyFiling:
+            RawBankruptcyFiling['totalAssets'] = None
+        if 'totalLiabilities' not in RawBankruptcyFiling:
+            RawBankruptcyFiling['totalLiabilities'] = None
+        if 'attoneyFee' not in RawBankruptcyFiling:
+            RawBankruptcyFiling['attoneyFee'] = None
+        if 'totalCombinedMonthlyIncome' not in RawBankruptcyFiling:
+            RawBankruptcyFiling['totalCombinedMonthlyIncome'] = None
+    cursor.execute(insert_raw_bankruptcy_filing, RawBankruptcyFiling)
+    cnx.commit()
+
+cursor.close()
+cnx.close()
