@@ -70,6 +70,10 @@ for folder in os.listdir(os.path.join(root, '100 sample\\2001')):
                         break
                     # Much better chance that the person is not named
                     # Street Address/ZIP Code though it is still possible
+                if address_box_x_1 > 0 and address_box_x_2 == 0:
+                    address_box_x_2 = address_box_x_1 + 500
+                if address_box_y_1 > 0 and address_box_y_2 == 0:
+                    address_box_y_2 = address_box_y_1 + 100
                 debtor_ZIP_code = layout.filter_by(
                     lp.Rectangle(x_1=address_box_x_1, y_1=address_box_y_1,
                                 x_2=address_box_x_2, y_2=address_box_y_2))
